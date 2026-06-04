@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI投資の新しい設計図：社内生産性AIと顧客接点AI、役割分担で最大化する</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Salesforce navy palette（顧客接点AIセクション） */
+      --sf-blue: #0176D3;
+      --sf-dark: #032D60;
+      --sf-teal: #06A59A;
+      --sf-sky: #1B96FF;
+      --sf-light: #E8F4FD;
+      --sf-green: #2E844A;
+      --sf-green-light: #EEF6ED;
+      --sf-orange: #E07000;
+      --sf-orange-light: #FEF0E8;
+      --sf-purple: #6e3ec1;
+      --sf-purple-light: #F3EFFE;
+
+      /* Microsoft言及用 ニュートラル blue-gray */
+      --ms-slate: #455A64;
+      --ms-slate-dark: #263238;
+      --ms-slate-light: #ECEFF1;
+      --ms-slate-accent: #607D8B;
+
+      --text-primary: #181818;
+      --text-secondary: #3E3E3C;
+      --text-muted: #706E6B;
+      --bg-page: #F3F3F3;
+      --bg-card: #FFFFFF;
+      --border: #DDDBDA;
+      --border-strong: #B0ADAB;
+      --sidebar-w: 280px;
+      --sidebar-bg: #032D60;
+      --header-h: 64px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Salesforce Sans', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-primary);
+      background: var(--bg-page);
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--sidebar-bg);
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-logo { padding: 24px 24px 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-logo .sf-mark { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+    .sidebar-logo .ebook-title { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.45; }
+    .sidebar-nav { padding: 16px 0; flex: 1; }
+    .nav-section-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 24px 6px; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 24px;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none; font-size: 13px; font-weight: 500;
+      transition: all 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .nav-item:hover { color: #fff; background: rgba(255,255,255,0.07); border-left-color: var(--sf-teal); }
+    .nav-item.active { color: #fff; background: rgba(255,255,255,0.1); border-left-color: #04E1CB; }
+    .nav-item .chapter-num { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.35); min-width: 18px; }
+    .sidebar-footer { padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11.5px; color: rgba(255,255,255,0.4); }
+
+    /* ===== MAIN ===== */
+    .main { margin-left: var(--sidebar-w); flex: 1; min-width: 0; }
+    .section { min-height: 100vh; padding: 80px 80px; max-width: 1180px; }
+
+    /* ===== COVER ===== */
+    #cover {
+      background: linear-gradient(135deg, #032D60 0%, #0176D3 60%, #06A59A 100%);
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 64px;
+      max-width: none;
+      position: relative;
+      overflow: hidden;
+    }
+    #cover::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); border-radius: 50%; }
+    #cover::after { content: ''; position: absolute; bottom: -80px; left: 20%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(4,225,203,0.08) 0%, transparent 70%); border-radius: 50%; }
+
+    .cover-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #04E1CB; margin-bottom: 20px; }
+    .cover-title { font-size: clamp(30px, 4.6vw, 48px); font-weight: 800; color: #fff; line-height: 1.18; max-width: 760px; margin-bottom: 24px; }
+    .cover-title span { color: #04E1CB; }
+    .cover-subtitle { font-size: 18px; color: rgba(255,255,255,0.82); max-width: 620px; margin-bottom: 36px; line-height: 1.7; }
+    .cover-lead { font-size: 15px; color: rgba(255,255,255,0.7); max-width: 620px; margin-bottom: 56px; line-height: 1.8; border-left: 3px solid #04E1CB; padding-left: 18px; }
+
+    .cover-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #04E1CB; color: #032D60;
+      font-weight: 700; font-size: 15px;
+      padding: 14px 28px; border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      width: fit-content;
+    }
+    .cover-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(4,225,203,0.35); }
+
+    .cover-meta { margin-top: 40px; font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; }
+
+    /* ===== SECTION COMMON ===== */
+    .chapter-eyebrow {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--sf-blue); margin-bottom: 16px;
+    }
+    .chapter-eyebrow.ms-tone { color: var(--ms-slate-accent); }
+    .chapter-num-badge {
+      background: var(--sf-blue); color: #fff;
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 800;
+    }
+    .chapter-num-badge.ms-tone { background: var(--ms-slate-accent); }
+
+    .section-title {
+      font-size: clamp(26px, 3.4vw, 38px);
+      font-weight: 800; color: var(--sf-dark);
+      line-height: 1.25; margin-bottom: 20px;
+    }
+    .section-title.ms-tone { color: var(--ms-slate-dark); }
+
+    .section-lead {
+      font-size: 18px; color: var(--text-secondary);
+      max-width: 920px; margin-bottom: 44px;
+      line-height: 1.75;
+      border-left: 4px solid var(--sf-teal);
+      padding-left: 20px;
+    }
+    .section-lead.ms-tone { border-left-color: var(--ms-slate-accent); }
+
+    .body-text {
+      font-size: 16px; color: var(--text-secondary);
+      line-height: 1.85; margin-bottom: 22px;
+      max-width: 980px;
+    }
+    .body-text strong { color: var(--text-primary); }
+
+    .section-h3 {
+      font-size: 20px; font-weight: 700;
+      color: var(--sf-dark);
+      margin: 40px 0 16px;
+    }
+    .section-h3.ms-tone { color: var(--ms-slate-dark); }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+    /* ===== CARDS ===== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin: 28px 0;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .card-icon.blue { background: var(--sf-light); color: var(--sf-blue); }
+    .card-icon.teal { background: rgba(6,165,154,0.1); color: var(--sf-teal); }
+    .card-icon.green { background: var(--sf-green-light); color: var(--sf-green); }
+    .card-icon.orange { background: var(--sf-orange-light); color: var(--sf-orange); }
+    .card-icon.purple { background: var(--sf-purple-light); color: var(--sf-purple); }
+    .card-icon.dark { background: rgba(3,45,96,0.08); color: var(--sf-dark); }
+    .card-icon.slate { background: var(--ms-slate-light); color: var(--ms-slate-dark); }
+
+    .card-title { font-size: 15.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+    .card-body { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ===== PULL QUOTE ===== */
+    .pull-quote {
+      background: linear-gradient(135deg, var(--sf-dark) 0%, #0176D3 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 36px 44px;
+      margin: 36px 0;
+      position: relative;
+    }
+    .pull-quote.ms-tone {
+      background: linear-gradient(135deg, var(--ms-slate-dark) 0%, var(--ms-slate-accent) 100%);
+    }
+    .pull-quote::before {
+      content: '"';
+      font-size: 110px; line-height: 1;
+      color: rgba(255,255,255,0.1);
+      position: absolute;
+      top: -10px; left: 22px;
+      font-family: Georgia, serif;
+    }
+    .pull-quote-text {
+      font-size: 19px; font-weight: 600; line-height: 1.55;
+      position: relative; z-index: 1;
+    }
+    .pull-quote-text span { color: #04E1CB; }
+    .pull-quote.ms-tone .pull-quote-text span { color: #B0BEC5; }
+    .pull-quote-source {
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.6);
+      position: relative; z-index: 1;
+    }
+
+    /* ===== STATS ===== */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      text-align: center;
+    }
+    .stat-box-num { font-size: 34px; font-weight: 800; color: var(--sf-blue); line-height: 1; margin-bottom: 6px; }
+    .stat-box-label { font-size: 12.5px; color: var(--text-muted); line-height: 1.45; }
+    .stat-box-source { font-size: 11px; color: var(--text-muted); margin-top: 6px; opacity: 0.7; }
+
+    /* ===== TABLE ===== */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin: 28px 0;
+      font-size: 14px;
+    }
+    .compare-table th {
+      padding: 14px 18px;
+      font-size: 12.5px; font-weight: 700;
+      text-align: left;
+      background: var(--sf-dark); color: #fff;
+    }
+    .compare-table th.ms-col { background: var(--ms-slate-dark); }
+    .compare-table th:first-child { width: 25%; background: #1a1f3a; }
+    .compare-table td {
+      padding: 13px 18px;
+      font-size: 13.5px; color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:nth-child(even) td { background: rgba(243,243,243,0.5); }
+    .compare-table td:first-child { font-weight: 600; color: var(--text-primary); width: 25%; }
+    .compare-table td.highlight { color: var(--sf-blue); font-weight: 600; }
+
+    /* ===== HIGHLIGHT BOX ===== */
+    .highlight-box {
+      border-left: 4px solid var(--sf-blue);
+      background: var(--sf-light);
+      border-radius: 0 12px 12px 0;
+      padding: 22px 26px;
+      margin: 24px 0;
+    }
+    .highlight-box.teal { border-left-color: var(--sf-teal); background: rgba(6,165,154,0.07); }
+    .highlight-box.green { border-left-color: var(--sf-green); background: var(--sf-green-light); }
+    .highlight-box.orange { border-left-color: var(--sf-orange); background: var(--sf-orange-light); }
+    .highlight-box.slate { border-left-color: var(--ms-slate-accent); background: var(--ms-slate-light); }
+
+    .highlight-box-title {
+      font-size: 14px; font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .highlight-box-body {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+    .highlight-box-body strong { color: var(--text-primary); }
+
+    /* ===== TWO-COL ===== */
+    .two-col {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 28px 0;
+    }
+
+    /* ===== CHECKLIST ===== */
+    .checklist { list-style: none; margin: 18px 0; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0;
+      font-size: 15px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      line-height: 1.65;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li .check-icon { color: var(--sf-green); flex-shrink: 0; margin-top: 3px; }
+    .checklist li strong { color: var(--text-primary); }
+    .checklist.numbered li .check-icon {
+      color: var(--sf-blue);
+      background: var(--sf-light);
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800;
+      margin-top: 0;
+    }
+
+    /* ===== DESIGN PRINCIPLE CARDS ===== */
+    .principle-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 14px;
+      display: flex; gap: 18px; align-items: flex-start;
+    }
+    .principle-num {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--sf-blue), var(--sf-teal));
+      color: #fff;
+      font-size: 18px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .principle-body { flex: 1; }
+    .principle-title { font-size: 16px; font-weight: 700; color: var(--sf-dark); margin-bottom: 6px; }
+    .principle-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* ===== Q&A ===== */
+    .qa-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin-bottom: 14px;
+    }
+    .qa-q {
+      font-size: 15.5px; font-weight: 700;
+      color: var(--sf-dark);
+      margin-bottom: 10px;
+      display: flex; gap: 10px;
+    }
+    .qa-q::before {
+      content: 'Q'; flex-shrink: 0;
+      width: 24px; height: 24px; border-radius: 6px;
+      background: var(--sf-dark); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800;
+    }
+    .qa-a {
+      font-size: 14.5px; color: var(--text-secondary);
+      line-height: 1.75;
+      display: flex; gap: 10px;
+    }
+    .qa-a::before {
+      content: 'A'; flex-shrink: 0;
+      width: 24px; height: 24px; border-radius: 6px;
+      background: var(--sf-teal); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800;
+    }
+
+    /* ===== ROLE MAP ===== */
+    .role-map {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 28px 0;
+    }
+    .role-map th, .role-map td {
+      padding: 13px 18px;
+      font-size: 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .role-map th { background: var(--sf-dark); color: #fff; font-weight: 700; font-size: 12.5px; }
+    .role-map tr:last-child td { border-bottom: none; }
+    .role-map td:first-child { font-weight: 600; color: var(--text-primary); width: 38%; }
+    .role-map td:last-child { color: var(--sf-blue); font-weight: 600; }
+
+    /* ===== USE-CASE CARDS ===== */
+    .usecase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .usecase-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+    }
+    .usecase-card.cs::before { background: var(--sf-blue); }
+    .usecase-card.sales::before { background: var(--sf-teal); }
+    .usecase-card.marketing::before { background: var(--sf-green); }
+    .usecase-card.commerce::before { background: var(--sf-orange); }
+    .usecase-head {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 12px;
+    }
+    .usecase-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .usecase-card.cs .usecase-icon { background: var(--sf-light); color: var(--sf-blue); }
+    .usecase-card.sales .usecase-icon { background: rgba(6,165,154,0.1); color: var(--sf-teal); }
+    .usecase-card.marketing .usecase-icon { background: var(--sf-green-light); color: var(--sf-green); }
+    .usecase-card.commerce .usecase-icon { background: var(--sf-orange-light); color: var(--sf-orange); }
+    .usecase-name { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+    .usecase-domain { font-size: 11.5px; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
+    .usecase-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 10px; }
+    .usecase-foot { font-size: 11.5px; color: var(--text-muted); border-top: 1px dashed var(--border); padding-top: 8px; }
+
+    /* ===== CTA BLOCK (chapter end) ===== */
+    .cta-block {
+      background: linear-gradient(135deg, #032D60 0%, #0176D3 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin: 40px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-block.green {
+      background: linear-gradient(135deg, #1B5E20 0%, var(--sf-green) 100%);
+    }
+    .cta-block.teal {
+      background: linear-gradient(135deg, #064B47 0%, var(--sf-teal) 100%);
+    }
+    .cta-block::before {
+      content: ''; position: absolute;
+      top: -40px; right: -40px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(4,225,203,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .cta-block-eyebrow {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: #04E1CB; margin-bottom: 10px;
+      position: relative; z-index: 1;
+    }
+    .cta-block.green .cta-block-eyebrow { color: #C8E6C9; }
+    .cta-block-title {
+      font-size: 20px; font-weight: 800;
+      color: #fff; margin-bottom: 10px;
+      position: relative; z-index: 1;
+    }
+    .cta-block-body {
+      font-size: 14.5px; color: rgba(255,255,255,0.8);
+      line-height: 1.7; margin-bottom: 18px;
+      max-width: 760px;
+      position: relative; z-index: 1;
+    }
+    .cta-block-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #04E1CB; color: #032D60;
+      font-weight: 700; font-size: 14px;
+      padding: 12px 22px; border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.15s;
+      position: relative; z-index: 1;
+    }
+    .cta-block-btn:hover { transform: translateY(-2px); }
+    .cta-block.green .cta-block-btn { background: #C8E6C9; color: #1B5E20; }
+
+    /* ===== SECTION BG ===== */
+    .section.bg-light { background: #EEF4FF; }
+    .section.bg-slate { background: var(--ms-slate-light); }
+    .section.bg-white { background: #fff; }
+    .section.bg-dark { background: var(--sf-dark); color: #fff; }
+    .section.bg-dark .section-title { color: #fff; }
+    .section.bg-dark .body-text { color: rgba(255,255,255,0.78); }
+    .section.bg-dark .chapter-eyebrow { color: #04E1CB; }
+    .section.bg-dark .section-lead { color: rgba(255,255,255,0.82); border-left-color: #04E1CB; }
+    .section.bg-dark .card { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+    .section.bg-dark .card-title { color: #fff; }
+    .section.bg-dark .card-body { color: rgba(255,255,255,0.65); }
+    .section.bg-dark .section-divider { border-color: rgba(255,255,255,0.1); }
+    .section.bg-dark .checklist li { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.1); }
+    .section.bg-dark .checklist li strong { color: #fff; }
+    .section.bg-dark .chapter-num-badge { background: #04E1CB; color: var(--sf-dark); }
+    .section.bg-dark .section-h3 { color: #fff; }
+
+    /* ===== FOOTNOTE ===== */
+    sup.fn-ref {
+      font-size: 11px;
+      color: var(--sf-blue);
+      font-weight: 700;
+      margin: 0 2px;
+    }
+    sup.fn-ref a {
+      color: inherit;
+      text-decoration: none;
+    }
+    sup.fn-ref a:hover { text-decoration: underline; }
+
+    .footnotes {
+      list-style: decimal;
+      padding-left: 24px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .footnotes li { margin-bottom: 8px; word-break: break-all; }
+    .footnotes a { color: var(--sf-blue); text-decoration: none; word-break: break-all; }
+    .footnotes a:hover { text-decoration: underline; }
+
+    /* ===== EPILOGUE ===== */
+    .epilogue-cta {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin: 32px 0;
+    }
+    .epilogue-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px;
+      display: flex; flex-direction: column;
+    }
+    .epilogue-card .ec-stage {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--sf-blue);
+      margin-bottom: 8px;
+    }
+    .epilogue-card.tofu .ec-stage { color: var(--sf-teal); }
+    .epilogue-card.mofu .ec-stage { color: var(--sf-blue); }
+    .epilogue-card.bofu .ec-stage { color: var(--sf-orange); }
+    .epilogue-card .ec-title { font-size: 16px; font-weight: 700; color: var(--sf-dark); margin-bottom: 8px; }
+    .epilogue-card .ec-body { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; flex: 1; margin-bottom: 14px; }
+    .epilogue-card .ec-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--sf-light); color: var(--sf-blue);
+      font-weight: 700; font-size: 13px;
+      padding: 10px 18px; border-radius: 8px;
+      text-decoration: none;
+      align-self: flex-start;
+    }
+    .epilogue-card.bofu .ec-btn { background: var(--sf-orange); color: #fff; }
+
+    /* ===== FOOTER ===== */
+    .page-footer {
+      background: var(--sf-dark);
+      color: rgba(255,255,255,0.65);
+      padding: 32px 64px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .page-footer strong { color: #fff; }
+
+    /* ===== HAMBURGER & MOBILE ===== */
+    .hamburger {
+      display: none;
+      position: fixed; top: 12px; left: 12px;
+      z-index: 200;
+      background: var(--sf-dark); color: #fff;
+      border: none; border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 99;
+    }
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar-overlay.open { display: block; }
+      .hamburger { display: flex; }
+      .main { margin-left: 0; }
+      .section { padding: 60px 22px; }
+      #cover { padding: 80px 22px; }
+      .section-title { font-size: 24px; }
+      .two-col { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .pull-quote { padding: 28px 24px; }
+      .compare-table, .role-map { font-size: 12.5px; display: block; overflow-x: auto; }
+      .page-footer { padding: 28px 22px; }
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-bar {
+      position: fixed; top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #04E1CB, #0176D3);
+      width: 0%;
+      z-index: 300;
+      transition: width 0.1s;
+    }
+
+    .accent-num {
+      font-size: 70px; font-weight: 900;
+      color: var(--sf-blue);
+      line-height: 1; opacity: 0.1;
+      position: absolute;
+      right: 40px; top: 24px;
+      pointer-events: none;
+    }
+    .accent-num.ms-tone { color: var(--ms-slate-accent); }
+    .section-relative { position: relative; overflow: hidden; }
+
+    /* tag */
+    .tag {
+      font-size: 11.5px; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px;
+      background: var(--sf-light); color: var(--sf-blue);
+      display: inline-block; margin: 2px 4px 2px 0;
+    }
+    .tag.slate { background: var(--ms-slate-light); color: var(--ms-slate-dark); }
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<button class="hamburger" onclick="toggleSidebar()">
+  <i data-lucide="menu" style="width:20px;height:20px;"></i>
+</button>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="sf-mark">eBook — 2026 Edition</div>
+    <div class="ebook-title">AI投資の新しい設計図<br><span style="opacity:0.7;font-weight:500;">社内生産性AIと顧客接点AI、<br>役割分担で最大化する</span></div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">目次</div>
+    <a href="#cover" class="nav-item active"><span class="chapter-num">—</span>カバー</a>
+    <a href="#intro" class="nav-item"><span class="chapter-num">序</span>はじめに</a>
+    <a href="#ch1" class="nav-item"><span class="chapter-num">01</span>社内AIと顧客接点AI</a>
+    <a href="#ch2" class="nav-item"><span class="chapter-num">02</span>Microsoft 365 / Copilotの強み</a>
+    <a href="#ch3" class="nav-item"><span class="chapter-num">03</span>顧客接点AI 5つの設計原則</a>
+    <a href="#ch4" class="nav-item"><span class="chapter-num">04</span>成果を決めるのは顧客文脈データ</a>
+    <a href="#ch5" class="nav-item"><span class="chapter-num">05</span>Copilot for Salesが示すもの</a>
+    <a href="#ch6" class="nav-item"><span class="chapter-num">06</span>データ・業務・ガバナンス基盤</a>
+    <a href="#ch7" class="nav-item"><span class="chapter-num">07</span>実装選択肢としてのSalesforce</a>
+    <a href="#ch8" class="nav-item"><span class="chapter-num">08</span>AI活用設計チェックリスト</a>
+    <a href="#epilogue" class="nav-item"><span class="chapter-num">CTA</span>次の一歩</a>
+    <a href="#footnotes" class="nav-item"><span class="chapter-num">出典</span>脚注一覧</a>
+  </nav>
+
+  <div class="sidebar-footer">
+    数値カットオフ：<br>2026-06-04 時点
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<main class="main">
+
+  <!-- ===== COVER ===== -->
+  <section id="cover">
+    <div class="cover-eyebrow">Enterprise AI Strategy — 2026 Edition</div>
+
+    <h1 class="cover-title">
+      AI投資の新しい設計図：<br>
+      <span>社内生産性AI</span>と<span>顧客接点AI</span>、<br>役割分担で最大化する
+    </h1>
+
+    <p class="cover-subtitle">
+      Copilot を全社展開した次に向き合う、顧客接点AIの設計原則。
+    </p>
+
+    <p class="cover-lead">
+      Microsoft 365 Copilot は社内生産性AIとして広く展開された。<br>
+      次の問いは「顧客業務でも同じ AI で十分か」だ。<br>
+      本書はこの問いに、製品比較ではなく<strong style="color:#04E1CB;">設計論</strong>として答える。
+    </p>
+
+    <a href="#intro" class="cover-cta">
+      読み始める
+      <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+    </a>
+
+    <div class="cover-meta">
+      数値はすべてカットオフ 2026-06-04 時点。出典は脚注に記載。
+    </div>
+  </section>
+
+  <!-- ===== INTRO ===== -->
+  <section id="intro" class="section section-relative bg-white">
+    <div class="accent-num">序</div>
+
+    <div class="chapter-eyebrow">
+      <div class="chapter-num-badge">序</div>
+      Introduction
+    </div>
+    <h2 class="section-title">なぜいま、AI戦略を「再整理」する必要があるのか</h2>
+    <p class="section-lead">
+      Microsoft 365 Copilot は社内生産性AIとして急速に普及した。<br>
+      一方で、PoCが本番化しない・顧客対応で活かせない・ROIが見えない、という声も多い。<br>
+      これは<strong>ベンダ選定の問題ではなく、設計論の問題</strong>である。
+    </p>
+
+    <p class="body-text">
+      Microsoft 365 Copilot は、Fortune 500 の <strong>nearly 70%</strong> で利用されている<sup class="fn-ref"><a href="#fn-1">1</a></sup>。さらに Microsoft Copilot Studio 上では <strong>over 400,000 のカスタムエージェント</strong>が作成され<sup class="fn-ref"><a href="#fn-1">1</a></sup>、社内生産性領域における AI の浸透は明確に進んでいる。Microsoft Graph 経由で社員の email / chat / document / meeting を文脈化する仕組み<sup class="fn-ref"><a href="#fn-2">2</a></sup>は、すでに多くの企業の日常業務に組み込まれている。
+    </p>
+
+    <p class="body-text">
+      その一方で、現場で繰り返し聞かれる声がある。「PoC は走るが本番化しない」「Copilot は社内では使えるが、顧客対応では使えていない」「AI への投資 ROI が経営層から見えない」——。これらの課題は、より高性能なモデルや新しいベンダを選べば解決するわけではない。<strong>「どの AI を、どの業務レイヤーに置くか」という設計の問題</strong>だ。
+    </p>
+
+    <p class="body-text">
+      本書は、AI 戦略を <strong>「社内生産性 AI」と「顧客接点 AI」</strong>という二層モデルで再整理する。Microsoft 365 / Copilot を中心に AI 投資を進めてきた企業が、<strong>次の一手</strong>として顧客接点・収益業務の AI をどう設計すべきかを、製品の優劣ではなく設計原則として提示する。
+    </p>
+
+    <div class="highlight-box">
+      <div class="highlight-box-title">
+        <i data-lucide="compass" style="width:16px;height:16px;color:var(--sf-blue);"></i>
+        本書のスタンス
+      </div>
+      <div class="highlight-box-body">
+        本書は <strong>Microsoft を否定しない</strong>。Microsoft 365 / Copilot / Microsoft Graph / Copilot Studio / Microsoft Fabric / OneLake / Microsoft Purview / Microsoft Entra ID は、社内生産性AIの強力な基盤であり、本書はそれぞれを「強い領域」として肯定的に位置づける。一方で、顧客接点・収益業務に踏み込む AI には<strong>別の設計論</strong>が必要だ——という二層モデルを提示する。
+      </div>
+    </div>
+
+    <p class="body-text">
+      日本の文脈では、IPA「DX動向 2025」が示すテーマ「<strong>内向き・部分最適から外向き・全体最適へ</strong>」<sup class="fn-ref"><a href="#fn-3">3</a></sup>とも通じる。社内効率化で止まらず、顧客接点・収益業務まで AI 投資を伸ばすには、二層モデルで設計を整理する必要がある——というのが本書の出発点だ。
+    </p>
+  </section>
+
+  <!-- ===== CHAPTER 1 ===== -->
+  <section id="ch1" class="section section-relative bg-light">
+    <div class="accent-num">01</div>
+
+    <div class="chapter-eyebrow">
+      <div class="chapter-num-badge">1</div>
+      Chapter 01
+    </div>
+    <h2 class="section-title">社内生産性AIと顧客接点AIは、<br>何が違うのか</h2>
+    <p class="section-lead">
+      「Copilot で全社業務が AI 化できるはず」——この前提を、データ・KPI・リスク・責任分界点という8つの観点で点検する。違いは、ベンダの優劣ではなく<strong>設計目的の違い</strong>にある。
+    </p>
+
+    <p class="body-text">
+      社内生産性AIと顧客接点AIは、<strong>扱うデータも、主ユーザーも、失敗時の影響も、KPIも、責任分界点も異なる</strong>。同じ「AI」と呼ばれているからといって、同じ設計で実装できるとは限らない。本章では、まず両者の違いを8観点で並べる。
+    </p>
+
+    <h3 class="section-h3">8観点で見る、二つのAIの違い</h3>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>観点</th>
+          <th class="ms-col">社内生産性AI<br><small style="font-weight:400;opacity:0.75;">（Microsoft 365 Copilot のような）</small></th>
+          <th>顧客接点AI<br><small style="font-weight:400;opacity:0.75;">（CRM データを使い顧客業務を実行する）</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>① 主データ</td>
+          <td>email / chat / document / meeting<sup class="fn-ref"><a href="#fn-2">2</a></sup></td>
+          <td>商談履歴 / ケース履歴 / 購買履歴 / 契約 / 同意</td>
+        </tr>
+        <tr>
+          <td>② 主ユーザー</td>
+          <td>社員（ナレッジワーカー全般）</td>
+          <td>顧客対応担当者・顧客自身（一次接点）</td>
+        </tr>
+        <tr>
+          <td>③ 失敗時の影響</td>
+          <td>要約ミス・社内資料の手戻り</td>
+          <td>解約・苦情・コンプライアンス違反・同意違反</td>
+        </tr>
+        <tr>
+          <td>④ 主KPI</td>
+          <td>業務効率・社員生産性・ナレッジ検索率</td>
+          <td>一次解決率 / 商談化率 / 解約率 / NPS / LTV</td>
+        </tr>
+        <tr>
+          <td>⑤ 主リスク</td>
+          <td>機密情報の社内漏洩</td>
+          <td>個人情報漏洩・誤対応による顧客損失</td>
+        </tr>
+        <tr>
+          <td>⑥ 責任分界点</td>
+          <td>社員自身の最終確認が前提</td>
+          <td>業務プロセス側で逸脱防止・監査が必要</td>
+        </tr>
+        <tr>
+          <td>⑦ Human-in-the-loop</td>
+          <td>低（社員がドラフトを判断）</td>
+          <td>高（金融・医療・公共では人間承認を介在）</td>
+        </tr>
+        <tr>
+          <td>⑧ 業務文脈</td>
+          <td>個人作業・チーム会議・ナレッジ検索</td>
+          <td>取引フェーズ管理 / 与信 / 契約 / ケース解決WF</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box slate">
+      <div class="highlight-box-title">
+        <i data-lucide="info" style="width:16px;height:16px;color:var(--ms-slate-accent);"></i>
+        Microsoft 365 Copilot の役割は、社内生産性AIとして極めて明確
+      </div>
+      <div class="highlight-box-body">
+        Microsoft 365 Copilot は、Microsoft Graph 経由で <em>"a user's emails, chats, documents, and meetings"</em> を文脈化する<sup class="fn-ref"><a href="#fn-2">2</a></sup>。これは社員の日常業務に強く効く設計であり、本書はこの強みを否定しない。本書が論じるのは、<strong>その先にある「顧客接点AI」の設計</strong>だ。
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3">AI戦略で見落とされやすい3つの盲点</h3>
+
+    <div class="highlight-box teal">
+      <div class="highlight-box-title">
+        <i data-lucide="alert-triangle" style="width:16px;height:16px;color:var(--sf-teal);"></i>
+        盲点①：成果はモデル性能ではなく「データ」で決まる
+      </div>
+      <div class="highlight-box-body">
+        LLM の性能競争が話題の中心になりがちだが、顧客接点AIの成果は、AI が参照する<strong>顧客接点データの質と業務プロセスへの組み込み深さ</strong>で決まる。同じモデルでも、商談履歴・ケース履歴・契約・同意がリアルタイムに参照できるかで結果は大きく変わる。
+      </div>
+    </div>
+
+    <div class="highlight-box orange">
+      <div class="highlight-box-title">
+        <i data-lucide="alert-triangle" style="width:16px;height:16px;color:var(--sf-orange);"></i>
+        盲点②：汎用AIツールは「社内文脈中心」に設計されている
+      </div>
+      <div class="highlight-box-body">
+        Copilot のような社内生産性AIは、メール・文書・会議要約で力を発揮する。一方、CRM のケースを更新し、注文を処理し、商談を自律的に前進させるには、<strong>権限境界・監査ログ・顧客文脈データへのリアルタイム到達</strong>を備えた、別レイヤーの AI が必要だ。
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-box-title">
+        <i data-lucide="alert-triangle" style="width:16px;height:16px;color:var(--sf-blue);"></i>
+        盲点③：PoC が止まる本当の理由は「設計合意の不在」
+      </div>
+      <div class="highlight-box-body">
+        日本企業の現場では、<strong>稟議文化・法務確認・情シス基準・SIer 役割分担</strong>のなかで PoC が立ち上がる。しかし PoC が本番化に届かない構造的原因は、技術力ではなく <strong>本番化条件・KPI・データ整備計画が事前に合意されていない</strong>ことにある。これは社内生産性AIより顧客接点AIで強く現れる。
+      </div>
+    </div>
+
+    <p class="body-text">
+      ここまでの整理を一行で言うとこうなる。<strong>Copilot のような社内生産性AIは、メール・文書・会議要約で力を発揮する。一方、顧客業務を実行するAIは別レイヤーで設計する必要がある</strong>。次章では、Microsoft 365 / Copilot が「強い領域」と「設計目的が異なる領域」を整理する。
+    </p>
+
+    <div class="cta-block">
+      <div class="cta-block-eyebrow">章末セルフ診断</div>
+      <div class="cta-block-title">あなたは AI 投資の「3つの盲点」に何個該当？</div>
+      <div class="cta-block-body">
+        以下の3問のうち、いくつ「Yes」がありますか。<br>
+        <strong>Q1.</strong> 社内 AI 投資はあるが、顧客接点 AI の設計はまだ整理できていない<br>
+        <strong>Q2.</strong> AI の PoC は走るが、本番化条件・KPI が事前に合意できていない<br>
+        <strong>Q3.</strong> AI ガバナンス基準が部門ごとにばらついている
+      </div>
+      <a href="#ch2" class="cta-block-btn">
+        次章で「強い領域」と「届きにくい領域」を整理する
+        <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+      </a>
+    </div>
+  </section>
+  <!-- ===== CHAPTER 2 ===== -->
+  <section id="ch2" class="section section-relative bg-slate">
+    <div class="accent-num ms-tone">02</div>
+
+    <div class="chapter-eyebrow ms-tone">
+      <div class="chapter-num-badge ms-tone">2</div>
+      Chapter 02
+    </div>
+    <h2 class="section-title ms-tone">Microsoft 365 / Copilotが強い領域、<br>構造上届きにくい領域</h2>
+    <p class="section-lead ms-tone">
+      Microsoft 365 / Copilot を否定するのが本書の目的ではない。むしろ、<strong>強い領域を正しく認識する</strong>ことが、顧客接点AIの設計を考える出発点になる。
+    </p>
+
+    <p class="body-text">
+      ここでは Microsoft 公式ドキュメントの記述に基づいて、Microsoft 365 / Copilot が <strong>社内生産性AIとして強い領域</strong>を整理する。そのうえで、構造的に届きにくい領域は「Microsoft の弱み」ではなく <strong>「設計目的が異なる」</strong>と位置づける。
+    </p>
+
+    <h3 class="section-h3 ms-tone">Microsoft 365 / Copilot が強い領域</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon slate">
+          <i data-lucide="network" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">Microsoft Graph：社員業務文脈の統一API</div>
+        <div class="card-body">
+          Microsoft Graph は <em>"emails, chats, documents, and meetings"</em> を含む社員の業務文脈データへ統一API でアクセスできる<sup class="fn-ref"><a href="#fn-2">2</a></sup>。Microsoft 365 Copilot はここを土台に、社員の日常業務を文脈化する<sup class="fn-ref"><a href="#fn-4">4</a></sup>。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon slate">
+          <i data-lucide="layers" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">Copilot Studio：low-code エージェント構築</div>
+        <div class="card-body">
+          Copilot Studio は <em>"graphical, low-code tool for building agents and agent flows"</em><sup class="fn-ref"><a href="#fn-5">5</a></sup>。社内ワークフロー寄りのエージェントを業務部門が作りやすい設計で、すでに <strong>over 400,000</strong> のカスタムエージェントが作成されている<sup class="fn-ref"><a href="#fn-1">1</a></sup>。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon slate">
+          <i data-lucide="database" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">Microsoft Fabric / OneLake：分析データレイク</div>
+        <div class="card-body">
+          OneLake は <em>"single, unified, logical data lake for analytics data"</em> として位置づけられ、Shortcuts で ADLS / S3 / Dataverse 等を参照できる<sup class="fn-ref"><a href="#fn-6">6</a></sup>。BI・分析の中心的基盤として強力だ。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon slate">
+          <i data-lucide="shield" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">Microsoft Purview / Microsoft Entra ID</div>
+        <div class="card-body">
+          Microsoft Purview は M365 Copilot のデータセキュリティ／コンプライアンス制御を担い<sup class="fn-ref"><a href="#fn-7">7</a></sup>、Microsoft Entra ID は ID／アクセス制御の前提として動作する<sup class="fn-ref"><a href="#fn-8">8</a></sup>。社内側の AI 統制基盤として成熟している。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon slate">
+          <i data-lucide="puzzle" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">Teams / Outlook / Office との自然延長</div>
+        <div class="card-body">
+          すでに導入されている Teams / Outlook / Office との UI 連続性は、社員側の利用ハードルを大きく下げる。社内生産性AIとしての導入優位性は、他のどのレイヤーより明確だ。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon slate">
+          <i data-lucide="trending-up" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">Fortune 500 nearly 70% の利用</div>
+        <div class="card-body">
+          Microsoft 365 Copilot は Fortune 500 の <strong>nearly 70%</strong> で利用されている<sup class="fn-ref"><a href="#fn-1">1</a></sup>（2025-03 時点）。社内生産性AI は、すでに「採用するか」ではなく「どう使い切るか」のフェーズに入っている。
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3 ms-tone">構造上、別の設計が必要になる領域</h3>
+
+    <p class="body-text">
+      ここから先は <strong>「Microsoft の弱み」ではない</strong>。Microsoft 365 / Copilot がそもそも社内生産性領域に最適化されているからこそ、構造的に <strong>別の設計</strong>が要る領域が存在する、という整理だ。
+    </p>
+
+    <div class="highlight-box slate">
+      <div class="highlight-box-title">
+        <i data-lucide="git-branch" style="width:16px;height:16px;color:var(--ms-slate-accent);"></i>
+        顧客接点業務のリアルタイム実行
+      </div>
+      <div class="highlight-box-body">
+        取引フェーズ管理・ケース解決ワークフロー・与信判定・契約・同意管理は、<strong>CRM ネイティブの業務ロジック</strong>として実装されている領域だ。Microsoft Graph の参照範囲とは設計目的が違う。これは優劣ではなく、<strong>レイヤーの違い</strong>として捉えるのが妥当だ。
+      </div>
+    </div>
+
+    <div class="highlight-box slate">
+      <div class="highlight-box-title">
+        <i data-lucide="users" style="width:16px;height:16px;color:var(--ms-slate-accent);"></i>
+        顧客接点 KPI への直接接続
+      </div>
+      <div class="highlight-box-body">
+        一次解決率・商談化率・解約率・NPS・LTV といった<strong>顧客接点 KPI</strong>は、CRM の業務オブジェクト（ケース・商談・契約）と密に結びついている。社内文脈データだけでは、これらの KPI を AI に追わせることは設計上難しい。
+      </div>
+    </div>
+
+    <div class="highlight-box slate">
+      <div class="highlight-box-title">
+        <i data-lucide="lock" style="width:16px;height:16px;color:var(--ms-slate-accent);"></i>
+        顧客接点向けの権限境界とガバナンス
+      </div>
+      <div class="highlight-box-body">
+        顧客データの権限モデル（CRM の OWD / 共有ルール / フィールド権限）、HitL（金融・医療・公共での人間承認）、監査ログ（AI のデータ参照履歴）は、社内ナレッジ向けのガバナンスと<strong>要件の粒度が違う</strong>。社内側で Microsoft Purview / Entra ID が担うのと同等の制御を、顧客データレイヤーでも別途設計する必要がある。
+      </div>
+    </div>
+
+    <div class="pull-quote ms-tone">
+      <div class="pull-quote-text">
+        Microsoft 365 / Copilot は社内生産性AIの強力な基盤だ。<br>
+        <span>一方で、顧客接点AIには別の設計論が必要になる</span>。<br>
+        これは対立ではなく、<span>レイヤーの違い</span>を扱うための整理だ。
+      </div>
+      <div class="pull-quote-source">— 二層モデルで整理することの意味</div>
+    </div>
+
+    <p class="body-text">
+      この章で重要なのは、<strong>強み</strong>と<strong>届きにくさ</strong>を「優劣」ではなく「役割の違い」として捉えることだ。次章では、顧客接点 AI の設計に必要な <strong>5 つの設計原則</strong>を、製品名なしで整理する。
+    </p>
+  </section>
+  <!-- ===== CHAPTER 3 ===== -->
+  <section id="ch3" class="section section-relative bg-white">
+    <div class="accent-num">03</div>
+
+    <div class="chapter-eyebrow">
+      <div class="chapter-num-badge">3</div>
+      Chapter 03
+    </div>
+    <h2 class="section-title">顧客接点AIに必要な<br>5つの設計原則</h2>
+    <p class="section-lead">
+      「PoC は走るが本番化しない」を抜け出すには、設計の土俵を揃える必要がある。<br>
+      本章では、製品名ではなく <strong>5 つの設計原則</strong>として要件を整理する。
+    </p>
+
+    <p class="body-text">
+      顧客接点 AI は、社内生産性 AI と違って <strong>業務を実際に動かす</strong>。誤対応は解約・苦情・コンプライアンス違反に直結する。だからこそ、PoC の前に「これを満たさなければ本番に出さない」という設計原則を合意することが、PoC 倒れ回避の本質になる。
+    </p>
+
+    <div class="principle-card">
+      <div class="principle-num">1</div>
+      <div class="principle-body">
+        <div class="principle-title">リアルタイム業務文脈</div>
+        <div class="principle-desc">
+          AI が判断・実行する瞬間に、<strong>商談・ケース・契約・購買・同意</strong>の最新状態が読めること。バッチ反映や夜間更新では、顧客対応の現場では遅すぎる。「いま、その顧客が、どのフェーズにいるか」を AI が即時に知れる構造が前提だ。
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-num">2</div>
+      <div class="principle-body">
+        <div class="principle-title">権限境界の保持</div>
+        <div class="principle-desc">
+          CRM の <strong>OWD（組織のデフォルト共有）／共有ルール／フィールド権限</strong>を、AI が逸脱せずに継承すること。「AI だから全部見える」は通らない。担当者の権限を超える顧客データを、AI が代理で参照・操作することは厳に避ける必要がある。
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-num">3</div>
+      <div class="principle-body">
+        <div class="principle-title">Human-in-the-loop（HitL）</div>
+        <div class="principle-desc">
+          金融・医療・公共・規制業種では、<strong>人間承認を介在させる発動条件</strong>を業務別に定義する。返金・与信・割引承認・契約変更など、リスクの高いアクションは AI が単独で完了させない。「いつ AI が止まり、誰が判断するか」を仕様として書き下ろす。
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-num">4</div>
+      <div class="principle-body">
+        <div class="principle-title">監査ログ・可説明性</div>
+        <div class="principle-desc">
+          AI の <strong>判断プロセス・参照データ・実行アクション</strong>のログが、後から監査できる状態で残ること。法務・情シスからの「なぜこの判断をしたのか」「誰のデータを見たのか」に、ベンダ問い合わせなしで答えられる粒度が必要だ。
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-num">5</div>
+      <div class="principle-body">
+        <div class="principle-title">KPI 接続</div>
+        <div class="principle-desc">
+          AI の活動が <strong>一次解決率・商談化率・解約率・NPS・LTV</strong>といった顧客接点 KPI に紐付いて測定できること。「便利になった気がする」では本番化の合意が取れない。PoC 開始前に、KPI と本番化条件をセットで合意する。
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3">日本市場ならではの 4 つの確認ポイント</h3>
+
+    <p class="body-text">
+      日本企業の現場では、上記 5 原則に加えて、いくつかの構造的な要因を織り込む必要がある。これらは「Microsoft か Salesforce か」というベンダ選定の話ではなく、<strong>設計プロセスを成立させるための前提条件</strong>だ。
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-icon orange">
+          <i data-lucide="file-check-2" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">稟議・法務・情シスの三者合意</div>
+        <div class="card-body">
+          AI が顧客データに触れる以上、稟議・法務確認・情シス基準の三者の合意が前提になる。PoC を始める前に、<strong>承認プロセスの全体像</strong>を関係部門で握っておくことで、本番化フェーズでの差し戻しを防ぐ。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon orange">
+          <i data-lucide="users" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">SIer 役割分担の事前整理</div>
+        <div class="card-body">
+          社内 AI 担当 SIer と顧客接点 AI 担当 SIer が異なるケースは少なくない。<strong>役割分担と責任範囲</strong>を事前に整理しないと、本番化フェーズで「誰がどこまで」が曖昧になり、運用設計が止まる。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon orange">
+          <i data-lucide="repeat-2" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">PoC 倒れの構造的回避</div>
+        <div class="card-body">
+          PoC が本番化しない原因の多くは、技術ではなく <strong>本番化条件・KPI・データ整備計画の事前合意不在</strong>だ。「PoC で動いた」と「本番で運用できる」の間には、合意フォームの有無という溝がある。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon orange">
+          <i data-lucide="heart-handshake" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">顧客対応品質と人手不足</div>
+        <div class="card-body">
+          コンタクトセンター・カスタマーサクセスの人手不足が深刻化する一方で、日本企業の顧客対応品質への要求は高い。<strong>「省人化」と「品質維持」の両立</strong>を、設計原則として AI に組み込む必要がある。
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-box-title">
+        <i data-lucide="check-circle-2" style="width:16px;height:16px;color:var(--sf-blue);"></i>
+        本番化の判定基準
+      </div>
+      <div class="highlight-box-body">
+        <strong>5 原則をすべて満たさない PoC は、本番に届かない</strong>。逆に言えば、PoC を始める前に「どの原則を、どのレベルで満たすか」を合意フォームに書き下ろせれば、PoC 倒れの大半は予防できる。
+      </div>
+    </div>
+
+    <div class="cta-block teal">
+      <div class="cta-block-eyebrow">章末チェック</div>
+      <div class="cta-block-title">データ成熟度 5 問チェック</div>
+      <div class="cta-block-body">
+        以下の5問で、顧客接点AIに必要なデータ／業務基盤が、自社でどこまで整っているかを点検できます。<br>
+        <strong>Q1.</strong> 顧客接点データはリアルタイムで集約できているか<br>
+        <strong>Q2.</strong> AI 用に意味検索（embedding）が利用可能か<br>
+        <strong>Q3.</strong> 権限モデルが AI に継承されているか<br>
+        <strong>Q4.</strong> AI の判断ログが監査可能か<br>
+        <strong>Q5.</strong> 顧客接点 AI の KPI が定義されているか
+      </div>
+      <a href="#ch4" class="cta-block-btn">
+        次章で「顧客接点データ」をもう一段深掘りする
+        <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+      </a>
+    </div>
+  </section>
+  <!-- ===== CHAPTER 4 ===== -->
+  <section id="ch4" class="section section-relative bg-light">
+    <div class="accent-num">04</div>
+
+    <div class="chapter-eyebrow">
+      <div class="chapter-num-badge">4</div>
+      Chapter 04
+    </div>
+    <h2 class="section-title">顧客接点AIの成果を決めるデータ：<br>メール・文書ではなく、顧客文脈</h2>
+    <p class="section-lead">
+      顧客接点AIの精度は、モデルではなく <strong>データ</strong>で決まる。<br>
+      しかも必要なのはメール・文書のテキストではなく、<strong>商談・契約・購買・同意</strong>といった顧客文脈データだ。
+    </p>
+
+    <p class="body-text">
+      <strong>GIGO（Garbage In, Garbage Out）</strong>——AI に対する古典的な原則は、顧客接点 AI でこそ効いてくる。どれだけ高性能なモデルでも、参照できるデータが社内文書・会議要約だけなら、顧客対応の業務は前に進まない。本章では、顧客接点 AI が必要とする <strong>4 種の顧客文脈データ</strong>を整理し、Microsoft Graph が扱うデータと並べて比較する。
+    </p>
+
+    <h3 class="section-h3">顧客接点AIが必要とする 4 種のデータ</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon blue">
+          <i data-lucide="activity" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">① 行動・履歴データ</div>
+        <div class="card-body">
+          商談履歴・ケース履歴・購買履歴・サポート履歴。「いつ、どの担当者が、どの顧客と、何を話したか」「どの商品をいつ買い、どの問い合わせで何を解決したか」が、時系列で揃っているか。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon teal">
+          <i data-lucide="file-text" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">② 契約・与信・同意データ</div>
+        <div class="card-body">
+          契約条件・与信枠・マーケティング同意・Cookie 同意。AI がアクションを起こす際に「<strong>その顧客にこのアクションを取って良いか</strong>」を判断するための制約条件。同意違反はそのままコンプライアンス違反になる。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon green">
+          <i data-lucide="users-2" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">③ 対人関係データ</div>
+        <div class="card-body">
+          担当 SE・カスタマーサクセス・提案者の関与履歴。法人顧客では「<strong>誰がどの顧客とどう関わってきたか</strong>」が、提案・サポート品質の質を決める。組織内のリレーションも顧客文脈の一部だ。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon orange">
+          <i data-lucide="layout-grid" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">④ チャネル横断データ</div>
+        <div class="card-body">
+          Web・店頭・コールセンター・メール・モバイルアプリ。顧客は1人だが、企業内では別チャネルとして分断されがち。<strong>同一顧客のチャネル横断ジャーニー</strong>を AI が見られるか。
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3">Microsoft Graph データ vs 顧客接点 CRM データ</h3>
+
+    <p class="body-text">
+      Microsoft 365 Copilot は、Microsoft Graph 経由で社員業務文脈データに到達する<sup class="fn-ref"><a href="#fn-2">2</a></sup>。これは社内生産性 AI の力の源泉だ。一方、顧客接点 AI が必要とするのは、それとは別レイヤーの <strong>顧客文脈データ</strong>である。
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>カテゴリ</th>
+          <th class="ms-col">Microsoft Graph データ<br><small style="font-weight:400;opacity:0.75;">（社内文脈）</small></th>
+          <th>顧客接点 CRM データ<br><small style="font-weight:400;opacity:0.75;">（顧客文脈）</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>主な内容</td>
+          <td>email / chat / document / meeting / calendar<sup class="fn-ref"><a href="#fn-2">2</a></sup></td>
+          <td>商談 / ケース / 契約 / 購買 / 同意 / サポート履歴</td>
+        </tr>
+        <tr>
+          <td>主な活用</td>
+          <td>社員のナレッジ検索・要約・ドラフト生成</td>
+          <td>顧客対応のリアルタイム判断・自律実行</td>
+        </tr>
+        <tr>
+          <td>主な所有者</td>
+          <td>社員（個人 OneDrive / メール / Teams）</td>
+          <td>企業（CRM 上で組織共有）</td>
+        </tr>
+        <tr>
+          <td>権限境界</td>
+          <td>社員自身のアクセス権で AI が動作</td>
+          <td>CRM の OWD / 共有ルール / フィールド権限を継承</td>
+        </tr>
+        <tr>
+          <td>主な KPI</td>
+          <td>業務効率・社員生産性</td>
+          <td>一次解決率 / 商談化率 / 解約率 / NPS / LTV</td>
+        </tr>
+        <tr>
+          <td>失敗時影響</td>
+          <td>要約精度・社内資料の品質</td>
+          <td>顧客解約・苦情・コンプライアンス違反</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pull-quote">
+      <div class="pull-quote-text">
+        顧客接点 AI の成果を決めるのは、<br>
+        メール・文書のテキストではなく、<span>商談・契約・購買・同意</span>の<br>
+        リアルタイム参照可能性だ。
+      </div>
+      <div class="pull-quote-source">— GIGO 原則を、顧客接点 AI に当てはめると</div>
+    </div>
+
+    <div class="highlight-box teal">
+      <div class="highlight-box-title">
+        <i data-lucide="bridge" style="width:16px;height:16px;color:var(--sf-teal);"></i>
+        次章への橋渡し
+      </div>
+      <div class="highlight-box-body">
+        この「顧客接点 CRM データ」を AI が使える形にするための基盤は、社内ナレッジ向けの基盤とは別レイヤーで設計する必要がある。次章では、<strong>Microsoft 自身が CRM データへの到達を Copilot の機能要件として組み込んでいる</strong>事実から、設計上の含意を読み解く。
+      </div>
+    </div>
+
+    <div class="cta-block green">
+      <div class="cta-block-eyebrow">章末ワークシート</div>
+      <div class="cta-block-title">顧客接点データ成熟度ワークシート（PDF DL）</div>
+      <div class="cta-block-body">
+        4 種の顧客接点データ（行動・履歴／契約・与信・同意／対人関係／チャネル横断）について、自社の保有状況を 5 段階評価できるワークシート。社内で議論する材料として、印刷して使えます。
+      </div>
+      <a href="#ch5" class="cta-block-btn">
+        ダウンロードして次章へ
+        <i data-lucide="download" style="width:14px;height:14px;"></i>
+      </a>
+    </div>
+  </section>
+  <!-- ===== CHAPTER 5（中核章） ===== -->
+  <section id="ch5" class="section section-relative bg-dark">
+    <div class="accent-num" style="color:#04E1CB;opacity:0.15;">05</div>
+
+    <div class="chapter-eyebrow">
+      <div class="chapter-num-badge">5</div>
+      Chapter 05 — 本書の中核章
+    </div>
+    <h2 class="section-title">Copilot for Sales / Sales Agent が示すこと：<br>AI 時代にも CRM データは重要である</h2>
+    <p class="section-lead">
+      Microsoft 自身が、Copilot の機能要件として <strong>CRM データへの到達</strong>を製品設計に組み込んでいる。<br>
+      この事実こそ、「社内文脈の Graph」と「顧客接点文脈の CRM」が <strong>両方必要</strong>であることの最も明確なエビデンスだ。
+    </p>
+
+    <p class="body-text">
+      ここまでの章で、社内生産性 AI と顧客接点 AI の違い、5 つの設計原則、必要となる顧客文脈データを整理してきた。本章はそれらの抽象論ではなく、<strong>Microsoft 公式ドキュメントが示している事実</strong>から、二層モデルの妥当性を検証する。
+    </p>
+
+    <h3 class="section-h3" style="color:#fff;">事実 ①：Salesforce CRM Connector が CRM オブジェクトをインデックスする</h3>
+
+    <div class="pull-quote">
+      <div class="pull-quote-text">
+        "The Salesforce CRM Microsoft 365 Copilot connector enables your organization to <span>index contacts, opportunities, leads, cases, and accounts</span> objects in your Salesforce instance."
+      </div>
+      <div class="pull-quote-source">— Microsoft Learn: Salesforce CRM Microsoft 365 Copilot connector<sup class="fn-ref"><a href="#fn-9">9</a></sup></div>
+    </div>
+
+    <p class="body-text">
+      Microsoft 365 Copilot 自体が、社内の Microsoft Graph データだけでは完結せず、<strong>contacts / opportunities / leads / cases / accounts</strong> という顧客接点の主要オブジェクトをインデックスする Connector を公式に提供している<sup class="fn-ref"><a href="#fn-9">9</a></sup>。これは技術的な選択肢ではなく、<strong>製品設計上の前提</strong>として組み込まれている。
+    </p>
+
+    <h3 class="section-h3" style="color:#fff;">事実 ②：Sales Agent は Dynamics 365 と Salesforce の両方に対応する</h3>
+
+    <div class="pull-quote">
+      <div class="pull-quote-text">
+        "The new Sales Agent for Copilot can automate workflows like turning your contacts into Sales Leads in <span>either Dynamics or Salesforce</span>."
+      </div>
+      <div class="pull-quote-source">— Microsoft 365 Blog (2025-03-05): New autonomous agents in Microsoft 365 Copilot<sup class="fn-ref"><a href="#fn-1">1</a></sup></div>
+    </div>
+
+    <p class="body-text">
+      Microsoft が新たに提供する <strong>Sales Agent for Microsoft 365 Copilot</strong>は、Dynamics 365 だけでなく Salesforce CRM へも書き込みを行う<sup class="fn-ref"><a href="#fn-1">1</a></sup>。Microsoft 自身が <strong>「自社 CRM だけでは顧客接点 AI は完結しない」</strong>という事実を、製品仕様で明確に認めているということだ。
+    </p>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3" style="color:#fff;">この事実から読み解くべき、3 つの設計上の含意</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon dark" style="background:rgba(4,225,203,0.15);color:#04E1CB;">
+          <i data-lucide="search" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">含意 ①：Connector は読み取り中心 + 限定的書き込み</div>
+        <div class="card-body">
+          Connector のメインは <strong>contacts / opportunities / leads / cases / accounts のインデックス（読み取り）</strong>だ<sup class="fn-ref"><a href="#fn-9">9</a></sup>。Sales Agent による Lead 化のような書き込みも一部あるが、CRM の業務ロジック全体を巻き取る設計ではない。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon dark" style="background:rgba(4,225,203,0.15);color:#04E1CB;">
+          <i data-lucide="cog" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">含意 ②：業務ロジックは CRM ネイティブ側に残る</div>
+        <div class="card-body">
+          取引フェーズ管理・ケース解決WF・与信・契約・割引承認・同意管理は、依然として <strong>CRM ネイティブの業務ロジック</strong>として動く。Connector で読めるからといって、業務ロジックそのものが Copilot 側に移るわけではない。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon dark" style="background:rgba(4,225,203,0.15);color:#04E1CB;">
+          <i data-lucide="layers-3" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">含意 ③：社内文脈と顧客接点文脈は両方必要</div>
+        <div class="card-body">
+          Microsoft Graph（社内文脈）と CRM（顧客接点文脈）は、<strong>どちらか一方</strong>では完結しない。これは Microsoft vs Salesforce の対立ではなく、<strong>設計上の二層モデル</strong>として整理されるべき関係だ。
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="background:rgba(4,225,203,0.08);border-left-color:#04E1CB;">
+      <div class="highlight-box-title" style="color:#fff;">
+        <i data-lucide="lightbulb" style="width:16px;height:16px;color:#04E1CB;"></i>
+        本章のメッセージ
+      </div>
+      <div class="highlight-box-body" style="color:rgba(255,255,255,0.85);">
+        この二つの公式記述<sup class="fn-ref"><a href="#fn-9">9</a></sup><sup class="fn-ref"><a href="#fn-1">1</a></sup>から導かれる結論は明快だ。<strong style="color:#fff;">問題は「Microsoft か Salesforce か」ではなく、「どの AI を、どの業務レイヤーに置くか」だ</strong>。Copilot を全社展開した企業ほど、次に向き合うべき問いは「<strong style="color:#fff;">CRM データを AI が使える顧客文脈に変える設計</strong>」になる。
+      </div>
+    </div>
+
+    <p class="body-text">
+      次章では、この二層モデルを支える基盤——<strong>データ基盤・業務基盤・ガバナンス基盤</strong>の 3 層を、両ベンダの公式表現で中立的に整理する。
+    </p>
+
+    <div class="cta-block teal">
+      <div class="cta-block-eyebrow">章末ダウンロード</div>
+      <div class="cta-block-title">AI 役割分担マップ（PDF DL）</div>
+      <div class="cta-block-body">
+        Microsoft 365 / Copilot と顧客接点 AI を、社内文脈レイヤーと顧客接点文脈レイヤーで整理するワークシート。「社内 AI で何を担い、顧客接点 AI で何を担うか」を可視化し、社内合意形成に使えます。
+      </div>
+      <a href="#ch6" class="cta-block-btn">
+        ダウンロードして次章へ
+        <i data-lucide="download" style="width:14px;height:14px;"></i>
+      </a>
+    </div>
+  </section>
+  <!-- ===== CHAPTER 6 ===== -->
+  <section id="ch6" class="section section-relative bg-white">
+    <div class="accent-num">06</div>
+
+    <div class="chapter-eyebrow">
+      <div class="chapter-num-badge">6</div>
+      Chapter 06
+    </div>
+    <h2 class="section-title">顧客業務をAIで動かすために必要な、<br>データ・業務・ガバナンスの基盤</h2>
+    <p class="section-lead">
+      二層モデルを実装するうえで、見落とされやすいのが「<strong>データ・業務・ガバナンス</strong>の3層構造」だ。<br>
+      Microsoft 系・Salesforce 系それぞれの公式表現に基づいて、中立的に整理する。
+    </p>
+
+    <p class="body-text">
+      本章は <strong>3 つの基盤レイヤー</strong>に分けて整理する。①分析データレイク／顧客接点リアルタイム業務基盤、②業務ロジックの所在、③ガバナンス（ID・権限・監査）。それぞれで、Microsoft 系と Salesforce 系の役割を <strong>公式記述ベース</strong>で並べる。優劣ではなく <strong>役割分担</strong>として整理することが、両方を活かす設計の出発点になる。
+    </p>
+
+    <h3 class="section-h3">① データ基盤：分析データレイク vs 顧客接点リアルタイム基盤</h3>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>観点</th>
+          <th class="ms-col">OneLake / Microsoft Fabric</th>
+          <th>Salesforce Data 360 のような顧客接点リアルタイム基盤</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>公式の位置づけ</td>
+          <td>"single, unified, logical data lake for analytics data"<sup class="fn-ref"><a href="#fn-6">6</a></sup></td>
+          <td>"real-time data engine that powers the entire Salesforce platform"<sup class="fn-ref"><a href="#fn-10">10</a></sup></td>
+        </tr>
+        <tr>
+          <td>主な用途</td>
+          <td>分析・BI・データレイクハウス</td>
+          <td>顧客接点業務のリアルタイム実行</td>
+        </tr>
+        <tr>
+          <td>特徴</td>
+          <td>Shortcuts で ADLS / S3 / Dataverse を参照可能<sup class="fn-ref"><a href="#fn-6">6</a></sup></td>
+          <td>Zero Copy で Snowflake / Databricks / Google Cloud / AWS と連携<sup class="fn-ref"><a href="#fn-10">10</a></sup></td>
+        </tr>
+        <tr>
+          <td>業務との接続</td>
+          <td>分析結果は別系統で業務に反映</td>
+          <td>業務オブジェクト（ケース・商談・契約）と直接接続</td>
+        </tr>
+        <tr>
+          <td>役割の関係</td>
+          <td colspan="2" style="text-align:center;font-weight:700;color:var(--sf-blue);">置換ではなく <strong style="color:var(--text-primary);">補完関係</strong>。OneLake のデータも Zero Copy 等で参照可能。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <div class="highlight-box-title">
+        <i data-lucide="info" style="width:16px;height:16px;color:var(--sf-blue);"></i>
+        分析と業務実行は同じデータ基盤で兼ねにくい
+      </div>
+      <div class="highlight-box-body">
+        分析用データレイクは「<strong>データの集約と分析</strong>」に最適化されている。顧客接点 AI が必要とするのは「<strong>業務状態のリアルタイム参照と書き込み</strong>」だ。要求される SLA・整合性・権限境界が違うため、<strong>同じレイヤーで兼ねさせない</strong>のが妥当な設計判断になる。
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3">② 業務基盤：CRM ネイティブの業務ロジック</h3>
+
+    <p class="body-text">
+      取引フェーズ管理・ケース解決ワークフロー・承認プロセス・与信判定・契約・割引承認・同意管理は、長年にわたり CRM ネイティブの業務ロジックとして実装されてきた。Ch5 で見たように、Microsoft 365 Copilot Salesforce Connector は <strong>これらを全部巻き取る設計にはなっていない</strong><sup class="fn-ref"><a href="#fn-9">9</a></sup>。これは制約ではなく、二層モデルの自然な帰結だ。
+    </p>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3">③ ガバナンス基盤：両ベンダの中立比較</h3>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>観点</th>
+          <th class="ms-col">Microsoft 側</th>
+          <th>Salesforce 側</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ID / アクセス制御</td>
+          <td>Microsoft Entra ID<sup class="fn-ref"><a href="#fn-8">8</a></sup></td>
+          <td>CRM 権限モデル（OWD / 共有ルール / フィールド権限）</td>
+        </tr>
+        <tr>
+          <td>データ統制 / コンプライアンス</td>
+          <td>Microsoft Purview<sup class="fn-ref"><a href="#fn-7">7</a></sup></td>
+          <td>Einstein Trust Layer（Zero Data Retention 等）<sup class="fn-ref"><a href="#fn-11">11</a></sup></td>
+        </tr>
+        <tr>
+          <td>主な対象</td>
+          <td>社員業務文脈（M365 / Graph）</td>
+          <td>顧客接点文脈（CRM）</td>
+        </tr>
+        <tr>
+          <td>適用範囲</td>
+          <td colspan="2" style="text-align:center;font-weight:700;color:var(--sf-blue);">両方とも <strong style="color:var(--text-primary);">必要</strong>。社内側と顧客接点側でそれぞれ統制設計が必要</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3">想定される反論への返答（Q&A）</h3>
+
+    <div class="qa-item">
+      <div class="qa-q">Microsoft Fabric / OneLake があれば、CRM のリアルタイム基盤は不要では？</div>
+      <div class="qa-a">
+        役割が違う、というのが妥当な答えだ。OneLake は <em>"single, unified, logical data lake for analytics data"</em><sup class="fn-ref"><a href="#fn-6">6</a></sup> として分析・BI に強い。一方、顧客接点 AI が必要とするのは「商談・ケースの最新状態をリアルタイムで読む／書く」業務基盤で、これは別レイヤーで設計するのが自然だ。OneLake のデータは Zero Copy で参照可能なため、<strong>置換ではなく補完</strong>として組み合わせるのが現実的な姿になる。
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">Teams が標準だから、別の現場連携 UI は不要では？</div>
+      <div class="qa-a">
+        Teams が社員コラボレーションの標準であることは前提として、ここでの論点は別だ。<strong>顧客接点 AI の示唆を、現場の対応担当者が業務文脈の中で受け取る UI</strong>と、社員間コラボツールは設計目的が異なる。「Teams か別の UI か」ではなく、Teams は社員コラボに、顧客接点 AI の Agent UI は CRM データに紐付いた業務文脈に、それぞれ最適化されている、という<strong>役割分担</strong>として捉える方が実態に合う。
+      </div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q">Microsoft 一体化のために、Dynamics 365 に寄せた方が運用は楽では？</div>
+      <div class="qa-a">
+        既存の CRM 上に蓄積された <strong>データ・業務ロジック・カスタマイズ・権限モデル</strong>の規模次第で、移行コストは並行運用コストを大きく上回ることがある。さらに Ch5 で見たように、Microsoft 自身が Sales Agent を <strong>Dynamics と Salesforce 両対応</strong>に設計している<sup class="fn-ref"><a href="#fn-1">1</a></sup>のは、両者の並行運用が現実的シナリオとして想定されているためだ。「寄せる」より、<strong>役割分担で並行運用</strong>を前提に設計する方が、リスクと投資の両面でバランスが良い場合が多い。
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-block-eyebrow">章末 Workshop</div>
+      <div class="cta-block-title">AI Governance Workshop（90 分・無料・オンライン）</div>
+      <div class="cta-block-body">
+        二層 AI 並行運用時のガバナンス設計を実務テーマとして扱う Workshop。社内 AI 統制レイヤーと顧客接点 AI 統制レイヤーそれぞれのデータガバナンス・権限モデル・監査ログをどう設計し組み合わせるか、社内 AI 担当・法務・情シスの三者で議論できる構成です。
+      </div>
+      <a href="#ch7" class="cta-block-btn">
+        Workshop に申し込む / 次章へ進む
+        <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+      </a>
+    </div>
+  </section>
+  <!-- ===== CHAPTER 7 ===== -->
+  <section id="ch7" class="section section-relative bg-light">
+    <div class="accent-num">07</div>
+
+    <div class="chapter-eyebrow">
+      <div class="chapter-num-badge">7</div>
+      Chapter 07
+    </div>
+    <h2 class="section-title">顧客接点AIを実装する選択肢：<br>Salesforce が担える役割の整理</h2>
+    <p class="section-lead">
+      ここまでの設計論を実装する選択肢のひとつとして、Salesforce が提供する役割を整理する。<br>
+      <strong>製品の優劣ではなく、設計論で必要な役割を、Salesforce ではどの製品が担うか</strong>という観点で並べる。
+    </p>
+
+    <p class="body-text">
+      ここからは、Ch1〜Ch6 で整理した設計論を <strong>具体的に実装するための選択肢</strong>として、Salesforce が提供する役割を整理する。Microsoft 環境を否定するためではなく、<strong>Microsoft 365 / Copilot と並行運用する前提</strong>で、顧客接点 AI レイヤーを担う候補として位置づける。
+    </p>
+
+    <h3 class="section-h3">設計論で必要な役割 → Salesforce の提供</h3>
+
+    <table class="role-map">
+      <thead>
+        <tr>
+          <th>設計論で必要な役割</th>
+          <th>Salesforce での提供</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>顧客接点データの統合基盤</td><td>Customer 360<sup class="fn-ref"><a href="#fn-12">12</a></sup></td></tr>
+        <tr><td>顧客接点データのリアルタイムエンジン</td><td>Data Cloud（現 Data 360）<sup class="fn-ref"><a href="#fn-10">10</a></sup></td></tr>
+        <tr><td>既存 DWH との接続層（ETL 不要）</td><td>Zero Copy<sup class="fn-ref"><a href="#fn-10">10</a></sup></td></tr>
+        <tr><td>顧客接点AIエージェント層</td><td>Agentforce<sup class="fn-ref"><a href="#fn-13">13</a></sup></td></tr>
+        <tr><td>自律推論エンジン</td><td>Atlas Reasoning Engine<sup class="fn-ref"><a href="#fn-13">13</a></sup></td></tr>
+        <tr><td>安全制御層 / Zero Data Retention</td><td>Einstein Trust Layer<sup class="fn-ref"><a href="#fn-11">11</a></sup></td></tr>
+        <tr><td>逸脱防止・エスカレーション設計</td><td>Agent Guardrails</td></tr>
+        <tr><td>外部システムへのアクション接続層</td><td>MuleSoft<sup class="fn-ref"><a href="#fn-14">14</a></sup></td></tr>
+        <tr><td>AI の示唆を可視化する層</td><td>Tableau<sup class="fn-ref"><a href="#fn-15">15</a></sup></td></tr>
+        <tr><td>現場連携・Agent UI 層（Teams 置換ではない）</td><td>Slack<sup class="fn-ref"><a href="#fn-16">16</a></sup></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3">業務領域別の顧客接点 AI ユースケース</h3>
+
+    <p class="body-text">
+      顧客接点 AI は、業務領域ごとに必要なデータとアクションが異なる。以下は <strong>業務領域</strong>を見出しに、Salesforce 環境で実装する場合の具体例を示すものだ。
+    </p>
+
+    <div class="usecase-card cs">
+      <div class="usecase-head">
+        <div class="usecase-icon">
+          <i data-lucide="headphones" style="width:22px;height:22px;"></i>
+        </div>
+        <div>
+          <div class="usecase-domain">カスタマーサービス</div>
+          <div class="usecase-name">問い合わせの自律解決</div>
+        </div>
+      </div>
+      <div class="usecase-desc">
+        ケース履歴・契約・購買履歴を参照しながら、24時間体制で一次解決を担う。複雑なケースは Human-in-the-loop で担当者へエスカレーション。一次解決率と CSAT を KPI に接続して測定する。
+      </div>
+      <div class="usecase-foot">Salesforce 環境では Service Cloud 上の <strong>Service Agent</strong> として実装。</div>
+    </div>
+
+    <div class="usecase-card sales">
+      <div class="usecase-head">
+        <div class="usecase-icon">
+          <i data-lucide="trending-up" style="width:22px;height:22px;"></i>
+        </div>
+        <div>
+          <div class="usecase-domain">営業</div>
+          <div class="usecase-name">商談先行確度評価・次のアクション提示</div>
+        </div>
+      </div>
+      <div class="usecase-desc">
+        商談履歴・対人関係・企業情報をもとに、有望リードを自律的に進行させる。重要な意思決定（割引・契約条件）は人間承認を介在。商談化率・受注率・サイクルタイムを KPI に接続。
+      </div>
+      <div class="usecase-foot">Salesforce 環境では Sales Cloud 上の <strong>SDR Agent</strong> として実装。</div>
+    </div>
+
+    <div class="usecase-card marketing">
+      <div class="usecase-head">
+        <div class="usecase-icon">
+          <i data-lucide="megaphone" style="width:22px;height:22px;"></i>
+        </div>
+        <div>
+          <div class="usecase-domain">マーケティング</div>
+          <div class="usecase-name">キャンペーン最適化と同意ベース配信</div>
+        </div>
+      </div>
+      <div class="usecase-desc">
+        セグメント設計・コンテンツ最適化を AI が支援。マーケティング同意・Cookie 同意を必ず参照したうえでメッセージを配信。コンバージョン率・CPA・LTV を KPI に接続。
+      </div>
+      <div class="usecase-foot">Salesforce 環境では Marketing Cloud 上の <strong>Campaign Optimizer</strong> として実装。</div>
+    </div>
+
+    <div class="usecase-card commerce">
+      <div class="usecase-head">
+        <div class="usecase-icon">
+          <i data-lucide="shopping-bag" style="width:22px;height:22px;"></i>
+        </div>
+        <div>
+          <div class="usecase-domain">EC コマース</div>
+          <div class="usecase-name">パーソナルショッピング体験</div>
+        </div>
+      </div>
+      <div class="usecase-desc">
+        購買履歴・閲覧履歴・在庫・価格をリアルタイムに統合し、顧客ごとの提案を自律生成。返品・問い合わせはサービス AI へシームレスに連携。AOV・CVR・リピート率を KPI に接続。
+      </div>
+      <div class="usecase-foot">Salesforce 環境では Commerce Cloud 上の <strong>Personal Shopper</strong> として実装。</div>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3">Microsoft 環境との共存パターン</h3>
+
+    <p class="body-text">
+      Salesforce を顧客接点 AI レイヤーとして導入する際、Microsoft 環境を <strong>置き換える必要はない</strong>。むしろ、Microsoft 公式が想定している共存パターンを活かすことで、両方の強みを引き出す設計が可能になる。
+    </p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon slate">
+          <i data-lucide="link" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">① Copilot for Sales / Sales Agent との接続</div>
+        <div class="card-body">
+          Microsoft 365 Copilot から Salesforce CRM へ contacts / opportunities / leads / cases / accounts を Connector でインデックス<sup class="fn-ref"><a href="#fn-9">9</a></sup>。社員は M365 上で顧客文脈を参照し、業務実行は CRM 側で完結する。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon slate">
+          <i data-lucide="database-zap" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">② OneLake / Fabric から Zero Copy で参照</div>
+        <div class="card-body">
+          OneLake / Fabric 上の分析データを ETL なしで Data 360 から参照<sup class="fn-ref"><a href="#fn-10">10</a></sup>。分析は Microsoft 側、業務リアルタイム実行は Salesforce 側、というレイヤー分担を維持できる。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon slate">
+          <i data-lucide="key-round" style="width:22px;height:22px;"></i>
+        </div>
+        <div class="card-title">③ Microsoft Entra ID + Einstein Trust Layer</div>
+        <div class="card-body">
+          ID 認証は Microsoft Entra ID<sup class="fn-ref"><a href="#fn-8">8</a></sup>、データガバナンスは Microsoft Purview<sup class="fn-ref"><a href="#fn-7">7</a></sup>と Salesforce Einstein Trust Layer<sup class="fn-ref"><a href="#fn-11">11</a></sup>を併用。社内側・顧客接点側それぞれの統制を活かす。
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-block-eyebrow">章末 Workshop</div>
+      <div class="cta-block-title">顧客接点AI ユースケース選定 Workshop</div>
+      <div class="cta-block-body">
+        自社の業務領域（カスタマーサービス・営業・マーケティング・EC）から、PoC で着手すべきユースケースを <strong>ワークシート形式で選定</strong>する社内開催型 Workshop。Microsoft 環境との共存設計まで含めて議論できます。
+      </div>
+      <a href="#ch8" class="cta-block-btn">
+        Workshop に申し込む / 次章のチェックリストへ
+        <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+      </a>
+    </div>
+  </section>
+  <!-- ===== CHAPTER 8 ===== -->
+  <section id="ch8" class="section section-relative bg-white">
+    <div class="accent-num">08</div>
+
+    <div class="chapter-eyebrow">
+      <div class="chapter-num-badge">8</div>
+      Chapter 08
+    </div>
+    <h2 class="section-title">Microsoft 中心の企業がまず確認すべき<br>AI 活用設計チェックリスト</h2>
+    <p class="section-lead">
+      これらの確認は、ベンダ選定ではなく <strong>設計プロセスそのもの</strong>だ。<br>
+      Microsoft 中心で AI 投資を進める企業ほど、顧客接点 AI 設計の論点として活用できる。
+    </p>
+
+    <p class="body-text">
+      ここまでで整理した二層モデル・5 設計原則・データ要件・基盤レイヤー・実装選択肢を、社内で <strong>議論可能なチェックリスト形式</strong>に落とし込む。10 項目すべて「Yes」で本番化、というより、<strong>未整理の項目を可視化するためのフレーム</strong>として使うのが推奨される使い方だ。
+    </p>
+
+    <h3 class="section-h3">10 項目チェックリスト（印刷可）</h3>
+
+    <ul class="checklist numbered">
+      <li>
+        <span class="check-icon">1</span>
+        <div><strong>社内生産性 AI と顧客接点 AI を別レイヤー</strong>として設計しているか。Copilot 全社展開と顧客接点 AI が、同じプロジェクトに統合されてしまっていないか。</div>
+      </li>
+      <li>
+        <span class="check-icon">2</span>
+        <div><strong>顧客接点データ</strong>（商談・ケース・契約・購買・同意）が、AI からリアルタイムに参照可能になっているか。バッチ反映で済ませていないか。</div>
+      </li>
+      <li>
+        <span class="check-icon">3</span>
+        <div><strong>権限モデル</strong>（CRM の OWD / 共有ルール / フィールド権限）が、AI に正しく継承されているか。「AI だから全部見える」になっていないか。</div>
+      </li>
+      <li>
+        <span class="check-icon">4</span>
+        <div><strong>Human-in-the-loop の発動条件</strong>が業務別に定義されているか。返金・与信・割引承認・契約変更などのリスク高アクションを、AI が単独で完了させていないか。</div>
+      </li>
+      <li>
+        <span class="check-icon">5</span>
+        <div><strong>監査ログ</strong>（AI の判断・参照データ・実行アクション）が、後から監査可能な粒度で保存されているか。法務・情シスからの問いに、ベンダ問い合わせなしで答えられるか。</div>
+      </li>
+      <li>
+        <span class="check-icon">6</span>
+        <div><strong>KPI</strong>（一次解決率・商談化率・解約率・NPS・LTV）が AI と接続され、本番化判定基準として事前に合意されているか。</div>
+      </li>
+      <li>
+        <span class="check-icon">7</span>
+        <div><strong>PoC の本番化条件</strong>（合意フォーム・KPI 達成基準・データ整備計画）が、PoC 開始<em>前</em>に書面で合意されているか。</div>
+      </li>
+      <li>
+        <span class="check-icon">8</span>
+        <div><strong>ガバナンス基準</strong>（Microsoft Purview / Einstein Trust Layer / 法務承認プロセス）が部門横断で統一されているか。Microsoft 側と顧客接点側で<strong>両方</strong>の制御が設計されているか。</div>
+      </li>
+      <li>
+        <span class="check-icon">9</span>
+        <div><strong>既存 DWH</strong>（Microsoft Fabric / OneLake / Snowflake / Databricks）との連携設計が決まっているか。Zero Copy 等で参照する前提で、データ移動の最小化が設計されているか。</div>
+      </li>
+      <li>
+        <span class="check-icon">10</span>
+        <div><strong>SIer 役割分担</strong>（社内 AI 担当 SIer × 顧客接点 AI 担当 SIer）が事前に整理されているか。本番化フェーズで「誰がどこまで」が曖昧になる構造を防げているか。</div>
+      </li>
+    </ul>
+
+    <hr class="section-divider">
+
+    <h3 class="section-h3">参考：顧客接点 AI 領域での社会的証明</h3>
+
+    <p class="body-text">
+      顧客接点 AI レイヤーで Salesforce を選択した企業の動向を、社会的証明として参考に示す。<strong>すべての数値は FY25 時点</strong>であり、ベンダ選定の根拠ではなく、<strong>顧客接点 AI 領域の市場形成の参考データ</strong>として読んでいただきたい。
+    </p>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-box-num">5,000+</div>
+        <div class="stat-box-label">Agentforce 導入</div>
+        <div class="stat-box-source">FY25 時点<sup class="fn-ref"><a href="#fn-13">13</a></sup></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-num">10,000+</div>
+        <div class="stat-box-label">Data 360 導入</div>
+        <div class="stat-box-source">FY25 時点<sup class="fn-ref"><a href="#fn-10">10</a></sup></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-num">40%</div>
+        <div class="stat-box-label">業務効率改善（Wiley 事例）</div>
+        <div class="stat-box-source">FY25 時点<sup class="fn-ref"><a href="#fn-17">17</a></sup></div>
+      </div>
+    </div>
+
+    <div class="highlight-box teal">
+      <div class="highlight-box-title">
+        <i data-lucide="check-circle-2" style="width:16px;height:16px;color:var(--sf-teal);"></i>
+        本書の結論
+      </div>
+      <div class="highlight-box-body">
+        ここまでの確認は、<strong>ベンダ選定ではなく設計プロセス</strong>そのものだ。Microsoft 中心の企業ほど、Copilot を全社展開した次に、<strong>顧客接点 AI レイヤーを別設計として持つかどうか</strong>が、AI 投資の伸ばし方を決める。製品の優劣ではなく、<strong>レイヤーの役割分担</strong>として整理することが、本書の結論である。
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-block-eyebrow">章末診断</div>
+      <div class="cta-block-title">顧客接点AI Readiness 診断（30 問・パーソナライズレポート付）</div>
+      <div class="cta-block-body">
+        本章のチェックリストを 30 問に拡張し、自社の <strong>レイヤー別成熟度</strong>を可視化する診断。回答後、自社向けにパーソナライズされたレポート（推奨ステップ・参考事例・Workshop 案内）が届きます。
+      </div>
+      <a href="#epilogue" class="cta-block-btn">
+        診断を受ける / 次の一歩へ
+        <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+      </a>
+    </div>
+  </section>
+  <!-- ===== EPILOGUE ===== -->
+  <section id="epilogue" class="section section-relative bg-light">
+    <div class="accent-num">CTA</div>
+
+    <div class="chapter-eyebrow">
+      <div class="chapter-num-badge"><i data-lucide="footprints" style="width:12px;height:12px;"></i></div>
+      Epilogue — Next Steps
+    </div>
+    <h2 class="section-title">読者の状況に応じた、3 段階の次の一歩</h2>
+    <p class="section-lead">
+      本書の議論をどう自社に当てはめるかは、読者が現在どのフェーズにいるかで変わる。<br>
+      ここでは TOFU・MOFU・BOFU それぞれに対応した <strong>3 つの選択肢</strong>を整理する。
+    </p>
+
+    <div class="epilogue-cta">
+      <div class="epilogue-card tofu">
+        <div class="ec-stage">情報収集フェーズ</div>
+        <div class="ec-title">もう少し情報を見る</div>
+        <div class="ec-body">
+          まずは関連 eBook やホワイトペーパーで、社内の議論を深めたい方へ。<br>
+          ・「顧客接点AI設計のための関連リソース」<br>
+          ・「社内AI×顧客接点AI 二層設計の参考資料集」
+        </div>
+        <a href="#" class="ec-btn">
+          関連リソースを見る
+          <i data-lucide="library" style="width:14px;height:14px;"></i>
+        </a>
+      </div>
+
+      <div class="epilogue-card mofu">
+        <div class="ec-stage">設計フェーズ</div>
+        <div class="ec-title">Workshop に参加する</div>
+        <div class="ec-body">
+          設計論を <strong>具体的なワークシート</strong>で社内に落とし込みたい方へ。<br>
+          ・AI Governance Workshop（90 分・無料）<br>
+          ・顧客接点AI ユースケース選定 Workshop<br>
+          ・データ成熟度診断 Workshop
+        </div>
+        <a href="#" class="ec-btn">
+          Workshop に申し込む
+          <i data-lucide="users" style="width:14px;height:14px;"></i>
+        </a>
+      </div>
+
+      <div class="epilogue-card bofu">
+        <div class="ec-stage">具体的な検討に進む</div>
+        <div class="ec-title">PoC 設計・営業相談</div>
+        <div class="ec-body">
+          すでに社内で方向性が固まり、<strong>具体的な PoC 設計</strong>に進みたい方へ。<br>
+          ・自社環境への適用相談（個別相談）<br>
+          ・PoC 設計の伴走支援<br>
+          ・本番化条件・KPI の事前合意づくり
+        </div>
+        <a href="#" class="ec-btn">
+          営業相談に進む
+          <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="highlight-box teal" style="margin-top:24px;">
+      <div class="highlight-box-title">
+        <i data-lucide="info" style="width:16px;height:16px;color:var(--sf-teal);"></i>
+        営業相談へ進むタイミング
+      </div>
+      <div class="highlight-box-body">
+        本書では、<strong>「具体的な検討に進むなら」</strong>と読者が判断したフェーズで、はじめて営業相談を選択肢として提示している。情報収集や設計検討の段階では、Workshop / 診断 / Readiness チェックリストで <strong>社内議論を進めるための材料</strong>を提供することを優先している。
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- ===== FOOTNOTES ===== -->
+    <div id="footnotes">
+      <h3 class="section-h3">脚注・出典一覧</h3>
+      <p class="body-text" style="font-size:13px;color:var(--text-muted);">
+        本書中で引用したすべての一次情報源を以下に記載する。すべての URL は <strong>2026-06-04 取得時</strong>の内容に基づく。Microsoft 系・Salesforce 系・公的機関を含む。
+      </p>
+      <ol class="footnotes">
+        <li id="fn-1">Microsoft 365 Blog (2025-03-05): "New autonomous agents in Microsoft 365 Copilot." Fortune 500 の nearly 70% が利用、Copilot Studio で over 400,000 custom agents、Sales Agent が Dynamics と Salesforce の両方に対応する旨の記述あり。 <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2025/03/05/new-sales-agents-in-microsoft-365-copilot/" target="_blank">https://www.microsoft.com/en-us/microsoft-365/blog/2025/03/05/new-sales-agents-in-microsoft-365-copilot/</a></li>
+        <li id="fn-2">Microsoft Learn: "Microsoft Graph Overview." Microsoft Graph は Microsoft 365 / Entra のゲートウェイとして、emails / chats / documents / meetings 等の社員業務文脈データへ統一 API でアクセスを提供する。 <a href="https://learn.microsoft.com/en-us/graph/overview" target="_blank">https://learn.microsoft.com/en-us/graph/overview</a></li>
+        <li id="fn-3">IPA「DX動向 2025」公式ページ。テーマ「内向き・部分最適から外向き・全体最適へ」。 <a href="https://www.ipa.go.jp/digital/dx/about.html" target="_blank">https://www.ipa.go.jp/digital/dx/about.html</a></li>
+        <li id="fn-4">Microsoft Learn: "Microsoft 365 Copilot Overview." Microsoft Graph 経由で社員業務文脈を文脈化する旨の記述あり。 <a href="https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-overview" target="_blank">https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-overview</a></li>
+        <li id="fn-5">Microsoft Learn: "What is Copilot Studio?" graphical, low-code tool for building agents and agent flows と記述。 <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio" target="_blank">https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio</a></li>
+        <li id="fn-6">Microsoft Learn: "OneLake Overview." single, unified, logical data lake for analytics data と記述。Shortcuts で ADLS / S3 / Dataverse 等を参照可能。 <a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview" target="_blank">https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview</a></li>
+        <li id="fn-7">Microsoft Learn: "Microsoft Purview." M365 Copilot のデータセキュリティ／コンプライアンス制御層。 <a href="https://learn.microsoft.com/en-us/purview/" target="_blank">https://learn.microsoft.com/en-us/purview/</a></li>
+        <li id="fn-8">Microsoft Learn: "Microsoft Entra." M365 Copilot の ID／アクセス制御の前提となる。 <a href="https://learn.microsoft.com/en-us/entra/" target="_blank">https://learn.microsoft.com/en-us/entra/</a></li>
+        <li id="fn-9">Microsoft Learn: "Salesforce CRM Microsoft 365 Copilot connector." 引用：「The Salesforce CRM Microsoft 365 Copilot connector enables your organization to index contacts, opportunities, leads, cases, and accounts objects in your Salesforce instance.」 <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/salesforce-connector" target="_blank">https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/salesforce-connector</a></li>
+        <li id="fn-10">Salesforce Data 公式ページ。Data 360 を "real-time data engine that powers the entire Salesforce platform" と説明。Zero Copy による Snowflake / Databricks / Google Cloud / AWS との連携の記述あり。 <a href="https://www.salesforce.com/data/" target="_blank">https://www.salesforce.com/data/</a></li>
+        <li id="fn-11">Salesforce Einstein Trust Layer 公式ページ。顧客データを安全に AI へ使わせる制御層。Zero Data Retention 等の記述あり。 <a href="https://www.salesforce.com/artificial-intelligence/trusted-ai/" target="_blank">https://www.salesforce.com/artificial-intelligence/trusted-ai/</a></li>
+        <li id="fn-12">Salesforce Customer 360 公式ページ。営業／サービス／マーケティング／コマース／IT を束ねる顧客接点データ統合基盤。 <a href="https://www.salesforce.com/products/" target="_blank">https://www.salesforce.com/products/</a></li>
+        <li id="fn-13">Salesforce Agentforce 公式ページ。Atlas Reasoning Engine の説明（understand, decide, and act autonomously）を含む。Agentforce 導入数 5,000+ は FY25 時点。 <a href="https://www.salesforce.com/agentforce/" target="_blank">https://www.salesforce.com/agentforce/</a></li>
+        <li id="fn-14">Salesforce MuleSoft 公式ページ。 <a href="https://www.salesforce.com/mulesoft/" target="_blank">https://www.salesforce.com/mulesoft/</a></li>
+        <li id="fn-15">Salesforce Tableau 公式ページ。 <a href="https://www.tableau.com/" target="_blank">https://www.tableau.com/</a></li>
+        <li id="fn-16">Salesforce Slack 公式ページ。Slack は現場連携・Agent UI レイヤーとして位置づけ、Teams 置換の用途ではない。 <a href="https://slack.com/" target="_blank">https://slack.com/</a></li>
+        <li id="fn-17">Salesforce Customer Stories: Agentforce 導入事例集（Wiley 事例で約 40% の業務効率改善が報告、FY25 時点）。 <a href="https://www.salesforce.com/news/stories/agentforce-customer-stories/" target="_blank">https://www.salesforce.com/news/stories/agentforce-customer-stories/</a></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer class="page-footer">
+  <strong>AI投資の新しい設計図：社内生産性AIと顧客接点AI、役割分担で最大化する</strong><br>
+  Enterprise AI Strategy eBook — 2026 Edition<br><br>
+  本書中の数値はすべて<strong>カットオフ 2026-06-04 時点</strong>。<br>
+  出典 URL は脚注一覧に記載。Microsoft / Salesforce / Dynamics 365 / Microsoft 365 Copilot / Microsoft Graph / Microsoft Fabric / OneLake / Microsoft Purview / Microsoft Entra ID / Salesforce Customer 360 / Salesforce Data 360 / Agentforce / Einstein Trust Layer / MuleSoft / Tableau / Slack はそれぞれの提供元の商標です。
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('open');
+  }
+
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scroll = h.scrollTop;
+    const height = h.scrollHeight - h.clientHeight;
+    const pct = (scroll / height) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+  });
+
+  // Active nav highlight
+  const navItems = document.querySelectorAll('.nav-item');
+  const sections = document.querySelectorAll('section[id], div[id="footnotes"]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      const top = s.offsetTop - 120;
+      if (window.scrollY >= top) current = s.id;
+    });
+    navItems.forEach(n => {
+      n.classList.toggle('active', n.getAttribute('href') === '#' + current);
+    });
+  });
+
+  // Mobile: close sidebar on nav click
+  navItems.forEach(n => n.addEventListener('click', () => {
+    if (window.innerWidth <= 900) toggleSidebar();
+  }));
+</script>
+
+</body>
+</html>
