@@ -22,7 +22,7 @@
       --sf-purple: #6e3ec1;
       --sf-purple-light: #F3EFFE;
 
-      /* Microsoft言及用 ニュートラル blue-gray */
+      /* 社内生産性AIセクション用 ニュートラル blue-gray */
       --ms-slate: #455A64;
       --ms-slate-dark: #263238;
       --ms-slate-light: #ECEFF1;
@@ -674,10 +674,10 @@
     <a href="#cover" class="nav-item active"><span class="chapter-num">—</span>カバー</a>
     <a href="#intro" class="nav-item"><span class="chapter-num">序</span>はじめに</a>
     <a href="#ch1" class="nav-item"><span class="chapter-num">01</span>社内AIと顧客接点AI</a>
-    <a href="#ch2" class="nav-item"><span class="chapter-num">02</span>Microsoft 365 / Copilotの強み</a>
+    <a href="#ch2" class="nav-item"><span class="chapter-num">02</span>社内生産性AIの強み</a>
     <a href="#ch3" class="nav-item"><span class="chapter-num">03</span>顧客接点AI 5つの設計原則</a>
     <a href="#ch4" class="nav-item"><span class="chapter-num">04</span>成果を決めるのは顧客文脈データ</a>
-    <a href="#ch5" class="nav-item"><span class="chapter-num">05</span>Copilot for Salesが示すもの</a>
+    <a href="#ch5" class="nav-item"><span class="chapter-num">05</span>二層AIが連携する意義</a>
     <a href="#ch6" class="nav-item"><span class="chapter-num">06</span>データ・業務・ガバナンス基盤</a>
     <a href="#ch7" class="nav-item"><span class="chapter-num">07</span>実装選択肢としてのSalesforce</a>
     <a href="#ch8" class="nav-item"><span class="chapter-num">08</span>AI活用設計チェックリスト</a>
@@ -703,11 +703,11 @@
     </h1>
 
     <p class="cover-subtitle">
-      Copilot を全社展開した次に向き合う、顧客接点AIの設計原則。
+      社内生産性AIを全社展開した次に向き合う、顧客接点AIの設計原則。
     </p>
 
     <p class="cover-lead">
-      Microsoft 365 Copilot は社内生産性AIとして広く展開された。<br>
+      社内生産性AIが企業全体に広く展開された。<br>
       次の問いは「顧客業務でも同じ AI で十分か」だ。<br>
       本書はこの問いに、製品比較ではなく<strong style="color:#04E1CB;">設計論</strong>として答える。
     </p>
@@ -732,21 +732,21 @@
     </div>
     <h2 class="section-title">なぜいま、AI戦略を「再整理」する必要があるのか</h2>
     <p class="section-lead">
-      Microsoft 365 Copilot は社内生産性AIとして急速に普及した。<br>
+      社内生産性AIが急速に普及した。<br>
       一方で、PoCが本番化しない・顧客対応で活かせない・ROIが見えない、という声も多い。<br>
       これは<strong>ベンダ選定の問題ではなく、設計論の問題</strong>である。
     </p>
 
     <p class="body-text">
-      Microsoft 365 Copilot は、Fortune 500 の <strong>nearly 70%</strong> で利用されている<sup class="fn-ref"><a href="#fn-1">1</a></sup>。さらに Microsoft Copilot Studio 上では <strong>over 400,000 のカスタムエージェント</strong>が作成され<sup class="fn-ref"><a href="#fn-1">1</a></sup>、社内生産性領域における AI の浸透は明確に進んでいる。Microsoft Graph 経由で社員の email / chat / document / meeting を文脈化する仕組み<sup class="fn-ref"><a href="#fn-2">2</a></sup>は、すでに多くの企業の日常業務に組み込まれている。
+      大手クラウドAIベンダーの社内生産性AIは、Fortune 500 の <strong>約70%</strong> で導入されている<sup class="fn-ref"><a href="#fn-1">1</a></sup>。さらに 主要AIベンダー AIエージェント構築基盤 上では <strong>over 400,000 のカスタムエージェント</strong>が作成され<sup class="fn-ref"><a href="#fn-1">1</a></sup>、社内生産性領域における AI の浸透は明確に進んでいる。社内業務データ基盤 経由で社員の email / chat / document / meeting を文脈化する仕組み<sup class="fn-ref"><a href="#fn-2">2</a></sup>は、すでに多くの企業の日常業務に組み込まれている。
     </p>
 
     <p class="body-text">
-      その一方で、現場で繰り返し聞かれる声がある。「PoC は走るが本番化しない」「Copilot は社内では使えるが、顧客対応では使えていない」「AI への投資 ROI が経営層から見えない」——。これらの課題は、より高性能なモデルや新しいベンダを選べば解決するわけではない。<strong>「どの AI を、どの業務レイヤーに置くか」という設計の問題</strong>だ。
+      その一方で、現場で繰り返し聞かれる声がある。「PoC は走るが本番化しない」「社内生産性AI は社内では使えるが、顧客対応では使えていない」「AI への投資 ROI が経営層から見えない」——。これらの課題は、より高性能なモデルや新しいベンダを選べば解決するわけではない。<strong>「どの AI を、どの業務レイヤーに置くか」という設計の問題</strong>だ。
     </p>
 
     <p class="body-text">
-      本書は、AI 戦略を <strong>「社内生産性 AI」と「顧客接点 AI」</strong>という二層モデルで再整理する。Microsoft 365 / Copilot を中心に AI 投資を進めてきた企業が、<strong>次の一手</strong>として顧客接点・収益業務の AI をどう設計すべきかを、製品の優劣ではなく設計原則として提示する。
+      本書は、AI 戦略を <strong>「社内生産性 AI」と「顧客接点 AI」</strong>という二層モデルで再整理する。社内生産性AI を中心に AI 投資を進めてきた企業が、<strong>次の一手</strong>として顧客接点・収益業務の AI をどう設計すべきかを、製品の優劣ではなく設計原則として提示する。
     </p>
 
     <div class="highlight-box">
@@ -755,7 +755,7 @@
         本書のスタンス
       </div>
       <div class="highlight-box-body">
-        本書は <strong>Microsoft を否定しない</strong>。Microsoft 365 / Copilot / Microsoft Graph / Copilot Studio / Microsoft Fabric / OneLake / Microsoft Purview / Microsoft Entra ID は、社内生産性AIの強力な基盤であり、本書はそれぞれを「強い領域」として肯定的に位置づける。一方で、顧客接点・収益業務に踏み込む AI には<strong>別の設計論</strong>が必要だ——という二層モデルを提示する。
+        本書は <strong>社内生産性AIベンダーの強みを否定しない</strong>。グループウェア・ドキュメント管理・社内コラボレーション・データ分析・IDアクセス管理を統合した<strong>社内生産性AIスイート</strong>は、企業のナレッジ活用と業務効率化において強力な基盤だ。一方で、顧客接点・収益業務に踏み込む AI には<strong>別の設計論</strong>が必要だ——という二層モデルを提示する。
       </div>
     </div>
 
@@ -774,7 +774,7 @@
     </div>
     <h2 class="section-title">社内生産性AIと顧客接点AIは、<br>何が違うのか</h2>
     <p class="section-lead">
-      「Copilot で全社業務が AI 化できるはず」——この前提を、データ・KPI・リスク・責任分界点という8つの観点で点検する。違いは、ベンダの優劣ではなく<strong>設計目的の違い</strong>にある。
+      「社内生産性AI で全社業務が AI 化できるはず」——この前提を、データ・KPI・リスク・責任分界点という8つの観点で点検する。違いは、ベンダの優劣ではなく<strong>設計目的の違い</strong>にある。
     </p>
 
     <p class="body-text">
@@ -787,7 +787,7 @@
       <thead>
         <tr>
           <th>観点</th>
-          <th class="ms-col">社内生産性AI<br><small style="font-weight:400;opacity:0.75;">（Microsoft 365 Copilot のような）</small></th>
+          <th class="ms-col">社内生産性AI<br><small style="font-weight:400;opacity:0.75;">（社内生産性AI のような）</small></th>
           <th>顧客接点AI<br><small style="font-weight:400;opacity:0.75;">（CRM データを使い顧客業務を実行する）</small></th>
         </tr>
       </thead>
@@ -838,10 +838,10 @@
     <div class="highlight-box slate">
       <div class="highlight-box-title">
         <i data-lucide="info" style="width:16px;height:16px;color:var(--ms-slate-accent);"></i>
-        Microsoft 365 Copilot の役割は、社内生産性AIとして極めて明確
+        社内生産性AIの役割は極めて明確
       </div>
       <div class="highlight-box-body">
-        Microsoft 365 Copilot は、Microsoft Graph 経由で <em>"a user's emails, chats, documents, and meetings"</em> を文脈化する<sup class="fn-ref"><a href="#fn-2">2</a></sup>。これは社員の日常業務に強く効く設計であり、本書はこの強みを否定しない。本書が論じるのは、<strong>その先にある「顧客接点AI」の設計</strong>だ。
+        社内生産性AIは、社内業務データ基盤経由で <em>「メール・チャット・ドキュメント・会議情報」</em> を文脈化する<sup class="fn-ref"><a href="#fn-2">2</a></sup>。これは社員の日常業務に強く効く設計であり、本書はこの強みを否定しない。本書が論じるのは、<strong>その先にある「顧客接点AI」の設計</strong>だ。
       </div>
     </div>
 
@@ -865,7 +865,7 @@
         盲点②：汎用AIツールは「社内文脈中心」に設計されている
       </div>
       <div class="highlight-box-body">
-        Copilot のような社内生産性AIは、メール・文書・会議要約で力を発揮する。一方、CRM のケースを更新し、注文を処理し、商談を自律的に前進させるには、<strong>権限境界・監査ログ・顧客文脈データへのリアルタイム到達</strong>を備えた、別レイヤーの AI が必要だ。
+        社内生産性AI のような社内生産性AIは、メール・文書・会議要約で力を発揮する。一方、CRM のケースを更新し、注文を処理し、商談を自律的に前進させるには、<strong>権限境界・監査ログ・顧客文脈データへのリアルタイム到達</strong>を備えた、別レイヤーの AI が必要だ。
       </div>
     </div>
 
@@ -880,7 +880,7 @@
     </div>
 
     <p class="body-text">
-      ここまでの整理を一行で言うとこうなる。<strong>Copilot のような社内生産性AIは、メール・文書・会議要約で力を発揮する。一方、顧客業務を実行するAIは別レイヤーで設計する必要がある</strong>。次章では、Microsoft 365 / Copilot が「強い領域」と「設計目的が異なる領域」を整理する。
+      ここまでの整理を一行で言うとこうなる。<strong>社内生産性AI のような社内生産性AIは、メール・文書・会議要約で力を発揮する。一方、顧客業務を実行するAIは別レイヤーで設計する必要がある</strong>。次章では、社内生産性AI が「強い領域」と「設計目的が異なる領域」を整理する。
     </p>
 
     <div class="cta-block">
@@ -906,61 +906,61 @@
       <div class="chapter-num-badge ms-tone">2</div>
       Chapter 02
     </div>
-    <h2 class="section-title ms-tone">Microsoft 365 / Copilotが強い領域、<br>構造上届きにくい領域</h2>
+    <h2 class="section-title ms-tone">社内生産性AIが強い領域・<br>顧客接点AIが価値を加える領域</h2>
     <p class="section-lead ms-tone">
-      Microsoft 365 / Copilot を否定するのが本書の目的ではない。むしろ、<strong>強い領域を正しく認識する</strong>ことが、顧客接点AIの設計を考える出発点になる。
+      社内生産性AIベンダーの強みを否定するのが本書の目的ではない。むしろ、<strong>強い領域を正しく認識する</strong>ことが、顧客接点AIの設計を考える出発点になる。
     </p>
 
     <p class="body-text">
-      ここでは Microsoft 公式ドキュメントの記述に基づいて、Microsoft 365 / Copilot が <strong>社内生産性AIとして強い領域</strong>を整理する。そのうえで、構造的に届きにくい領域は「Microsoft の弱み」ではなく <strong>「設計目的が異なる」</strong>と位置づける。
+      ここでは主要AIベンダーの公式ドキュメントの記述に基づいて、社内生産性AIが<strong>得意とする領域</strong>を整理する。そのうえで、顧客接点AIに求められる設計要件を「役割の違い」として整理する。
     </p>
 
-    <h3 class="section-h3 ms-tone">Microsoft 365 / Copilot が強い領域</h3>
+    <h3 class="section-h3 ms-tone">社内生産性AI が強い領域</h3>
 
     <div class="card-grid">
       <div class="card">
         <div class="card-icon slate">
           <i data-lucide="network" style="width:22px;height:22px;"></i>
         </div>
-        <div class="card-title">Microsoft Graph：社員業務文脈の統一API</div>
+        <div class="card-title">社内業務データ基盤：社員業務文脈の統一API</div>
         <div class="card-body">
-          Microsoft Graph は <em>"emails, chats, documents, and meetings"</em> を含む社員の業務文脈データへ統一API でアクセスできる<sup class="fn-ref"><a href="#fn-2">2</a></sup>。Microsoft 365 Copilot はここを土台に、社員の日常業務を文脈化する<sup class="fn-ref"><a href="#fn-4">4</a></sup>。
+          社内業務データ基盤 は <em>"emails, chats, documents, and meetings"</em> を含む社員の業務文脈データへ統一API でアクセスできる<sup class="fn-ref"><a href="#fn-2">2</a></sup>。社内生産性AI はここを土台に、社員の日常業務を文脈化する<sup class="fn-ref"><a href="#fn-4">4</a></sup>。
         </div>
       </div>
       <div class="card">
         <div class="card-icon slate">
           <i data-lucide="layers" style="width:22px;height:22px;"></i>
         </div>
-        <div class="card-title">Copilot Studio：low-code エージェント構築</div>
+        <div class="card-title">AIエージェント構築基盤：low-code エージェント構築</div>
         <div class="card-body">
-          Copilot Studio は <em>"graphical, low-code tool for building agents and agent flows"</em><sup class="fn-ref"><a href="#fn-5">5</a></sup>。社内ワークフロー寄りのエージェントを業務部門が作りやすい設計で、すでに <strong>over 400,000</strong> のカスタムエージェントが作成されている<sup class="fn-ref"><a href="#fn-1">1</a></sup>。
+          AIエージェント構築基盤 は <em>"graphical, low-code tool for building agents and agent flows"</em><sup class="fn-ref"><a href="#fn-5">5</a></sup>。社内ワークフロー寄りのエージェントを業務部門が作りやすい設計で、すでに <strong>over 400,000</strong> のカスタムエージェントが作成されている<sup class="fn-ref"><a href="#fn-1">1</a></sup>。
         </div>
       </div>
       <div class="card">
         <div class="card-icon slate">
           <i data-lucide="database" style="width:22px;height:22px;"></i>
         </div>
-        <div class="card-title">Microsoft Fabric / OneLake：分析データレイク</div>
+        <div class="card-title">社内分析データ基盤：分析データレイク</div>
         <div class="card-body">
-          OneLake は <em>"single, unified, logical data lake for analytics data"</em> として位置づけられ、Shortcuts で ADLS / S3 / Dataverse 等を参照できる<sup class="fn-ref"><a href="#fn-6">6</a></sup>。BI・分析の中心的基盤として強力だ。
+          社内データレイク は <em>"single, unified, logical data lake for analytics data"</em> として位置づけられ、Shortcuts で ADLS / S3 / Dataverse 等を参照できる<sup class="fn-ref"><a href="#fn-6">6</a></sup>。BI・分析の中心的基盤として強力だ。
         </div>
       </div>
       <div class="card">
         <div class="card-icon slate">
           <i data-lucide="shield" style="width:22px;height:22px;"></i>
         </div>
-        <div class="card-title">Microsoft Purview / Microsoft Entra ID</div>
+        <div class="card-title">データガバナンス基盤 / IDアクセス管理基盤</div>
         <div class="card-body">
-          Microsoft Purview は M365 Copilot のデータセキュリティ／コンプライアンス制御を担い<sup class="fn-ref"><a href="#fn-7">7</a></sup>、Microsoft Entra ID は ID／アクセス制御の前提として動作する<sup class="fn-ref"><a href="#fn-8">8</a></sup>。社内側の AI 統制基盤として成熟している。
+          データガバナンス基盤 は 社内生産性AI のデータセキュリティ／コンプライアンス制御を担い<sup class="fn-ref"><a href="#fn-7">7</a></sup>、IDアクセス管理基盤 は ID／アクセス制御の前提として動作する<sup class="fn-ref"><a href="#fn-8">8</a></sup>。社内側の AI 統制基盤として成熟している。
         </div>
       </div>
       <div class="card">
         <div class="card-icon slate">
           <i data-lucide="puzzle" style="width:22px;height:22px;"></i>
         </div>
-        <div class="card-title">Teams / Outlook / Office との自然延長</div>
+        <div class="card-title">既存社内ツールとの自然延長</div>
         <div class="card-body">
-          すでに導入されている Teams / Outlook / Office との UI 連続性は、社員側の利用ハードルを大きく下げる。社内生産性AIとしての導入優位性は、他のどのレイヤーより明確だ。
+          すでに導入されている社内コラボレーションツール群（グループウェア・メール・オフィスアプリ）との UI 連続性は、社員側の利用ハードルを大きく下げる。社内生産性AIとしての導入優位性は、他のどのレイヤーより明確だ。
         </div>
       </div>
       <div class="card">
@@ -969,17 +969,17 @@
         </div>
         <div class="card-title">Fortune 500 nearly 70% の利用</div>
         <div class="card-body">
-          Microsoft 365 Copilot は Fortune 500 の <strong>nearly 70%</strong> で利用されている<sup class="fn-ref"><a href="#fn-1">1</a></sup>（2025-03 時点）。社内生産性AI は、すでに「採用するか」ではなく「どう使い切るか」のフェーズに入っている。
+          社内生産性AI は Fortune 500 の <strong>nearly 70%</strong> で利用されている<sup class="fn-ref"><a href="#fn-1">1</a></sup>（2025-03 時点）。社内生産性AI は、すでに「採用するか」ではなく「どう使い切るか」のフェーズに入っている。
         </div>
       </div>
     </div>
 
     <hr class="section-divider">
 
-    <h3 class="section-h3 ms-tone">構造上、別の設計が必要になる領域</h3>
+    <h3 class="section-h3 ms-tone">顧客接点AIへの追加投資が価値を生む領域</h3>
 
     <p class="body-text">
-      ここから先は <strong>「Microsoft の弱み」ではない</strong>。Microsoft 365 / Copilot がそもそも社内生産性領域に最適化されているからこそ、構造的に <strong>別の設計</strong>が要る領域が存在する、という整理だ。
+      社内生産性AIは社内生産性領域に深く最適化されているからこそ、顧客接点・収益業務のAIには<strong>追加の設計投資</strong>が価値を生む。これは優劣の問題ではなく、AI投資を社内レイヤーと顧客接点レイヤーに<strong>合理的に分散する</strong>という設計論だ。
     </p>
 
     <div class="highlight-box slate">
@@ -988,7 +988,7 @@
         顧客接点業務のリアルタイム実行
       </div>
       <div class="highlight-box-body">
-        取引フェーズ管理・ケース解決ワークフロー・与信判定・契約・同意管理は、<strong>CRM ネイティブの業務ロジック</strong>として実装されている領域だ。Microsoft Graph の参照範囲とは設計目的が違う。これは優劣ではなく、<strong>レイヤーの違い</strong>として捉えるのが妥当だ。
+        取引フェーズ管理・ケース解決ワークフロー・与信判定・契約・同意管理は、<strong>CRM ネイティブの業務ロジック</strong>として実装されている領域だ。社内業務データ基盤 の参照範囲とは設計目的が違う。これは優劣ではなく、<strong>レイヤーの違い</strong>として捉えるのが妥当だ。
       </div>
     </div>
 
@@ -1008,13 +1008,13 @@
         顧客接点向けの権限境界とガバナンス
       </div>
       <div class="highlight-box-body">
-        顧客データの権限モデル（CRM の OWD / 共有ルール / フィールド権限）、HitL（金融・医療・公共での人間承認）、監査ログ（AI のデータ参照履歴）は、社内ナレッジ向けのガバナンスと<strong>要件の粒度が違う</strong>。社内側で Microsoft Purview / Entra ID が担うのと同等の制御を、顧客データレイヤーでも別途設計する必要がある。
+        顧客データの権限モデル（CRM の OWD / 共有ルール / フィールド権限）、HitL（金融・医療・公共での人間承認）、監査ログ（AI のデータ参照履歴）は、社内ナレッジ向けのガバナンスと<strong>要件の粒度が違う</strong>。社内側で データガバナンス基盤 / IDアクセス管理基盤 が担うのと同等の制御を、顧客データレイヤーでも別途設計する必要がある。
       </div>
     </div>
 
     <div class="pull-quote ms-tone">
       <div class="pull-quote-text">
-        Microsoft 365 / Copilot は社内生産性AIの強力な基盤だ。<br>
+        社内生産性AI は社内生産性AIの強力な基盤だ。<br>
         <span>一方で、顧客接点AIには別の設計論が必要になる</span>。<br>
         これは対立ではなく、<span>レイヤーの違い</span>を扱うための整理だ。
       </div>
@@ -1098,7 +1098,7 @@
     <h3 class="section-h3">日本市場ならではの 4 つの確認ポイント</h3>
 
     <p class="body-text">
-      日本企業の現場では、上記 5 原則に加えて、いくつかの構造的な要因を織り込む必要がある。これらは「Microsoft か Salesforce か」というベンダ選定の話ではなく、<strong>設計プロセスを成立させるための前提条件</strong>だ。
+      日本企業の現場では、上記 5 原則に加えて、いくつかの構造的な要因を織り込む必要がある。これらは「主要AIベンダー か Salesforce か」というベンダ選定の話ではなく、<strong>設計プロセスを成立させるための前提条件</strong>だ。
     </p>
 
     <div class="two-col">
@@ -1182,7 +1182,7 @@
     </p>
 
     <p class="body-text">
-      <strong>GIGO（Garbage In, Garbage Out）</strong>——AI に対する古典的な原則は、顧客接点 AI でこそ効いてくる。どれだけ高性能なモデルでも、参照できるデータが社内文書・会議要約だけなら、顧客対応の業務は前に進まない。本章では、顧客接点 AI が必要とする <strong>4 種の顧客文脈データ</strong>を整理し、Microsoft Graph が扱うデータと並べて比較する。
+      <strong>GIGO（Garbage In, Garbage Out）</strong>——AI に対する古典的な原則は、顧客接点 AI でこそ効いてくる。どれだけ高性能なモデルでも、参照できるデータが社内文書・会議要約だけなら、顧客対応の業務は前に進まない。本章では、顧客接点 AI が必要とする <strong>4 種の顧客文脈データ</strong>を整理し、社内業務データ基盤 が扱うデータと並べて比較する。
     </p>
 
     <h3 class="section-h3">顧客接点AIが必要とする 4 種のデータ</h3>
@@ -1228,17 +1228,17 @@
 
     <hr class="section-divider">
 
-    <h3 class="section-h3">Microsoft Graph データ vs 顧客接点 CRM データ</h3>
+    <h3 class="section-h3">社内業務データ基盤 データ vs 顧客接点 CRM データ</h3>
 
     <p class="body-text">
-      Microsoft 365 Copilot は、Microsoft Graph 経由で社員業務文脈データに到達する<sup class="fn-ref"><a href="#fn-2">2</a></sup>。これは社内生産性 AI の力の源泉だ。一方、顧客接点 AI が必要とするのは、それとは別レイヤーの <strong>顧客文脈データ</strong>である。
+      社内生産性AI は、社内業務データ基盤 経由で社員業務文脈データに到達する<sup class="fn-ref"><a href="#fn-2">2</a></sup>。これは社内生産性 AI の力の源泉だ。一方、顧客接点 AI が必要とするのは、それとは別レイヤーの <strong>顧客文脈データ</strong>である。
     </p>
 
     <table class="compare-table">
       <thead>
         <tr>
           <th>カテゴリ</th>
-          <th class="ms-col">Microsoft Graph データ<br><small style="font-weight:400;opacity:0.75;">（社内文脈）</small></th>
+          <th class="ms-col">社内業務データ基盤 データ<br><small style="font-weight:400;opacity:0.75;">（社内文脈）</small></th>
           <th>顧客接点 CRM データ<br><small style="font-weight:400;opacity:0.75;">（顧客文脈）</small></th>
         </tr>
       </thead>
@@ -1255,7 +1255,7 @@
         </tr>
         <tr>
           <td>主な所有者</td>
-          <td>社員（個人 OneDrive / メール / Teams）</td>
+          <td>社員（個人ドキュメント / メール / グループウェア）</td>
           <td>企業（CRM 上で組織共有）</td>
         </tr>
         <tr>
@@ -1291,7 +1291,7 @@
         次章への橋渡し
       </div>
       <div class="highlight-box-body">
-        この「顧客接点 CRM データ」を AI が使える形にするための基盤は、社内ナレッジ向けの基盤とは別レイヤーで設計する必要がある。次章では、<strong>Microsoft 自身が CRM データへの到達を Copilot の機能要件として組み込んでいる</strong>事実から、設計上の含意を読み解く。
+        この「顧客接点 CRM データ」を AI が使える形にするための基盤は、社内ナレッジ向けの基盤とは別レイヤーで設計する必要がある。次章では、<strong>主要AIベンダー自身が CRM データとの連携を製品設計の前提として組み込んでいる</strong>事実から、設計上の含意を読み解く。
       </div>
     </div>
 
@@ -1315,40 +1315,40 @@
       <div class="chapter-num-badge">5</div>
       Chapter 05 — 本書の中核章
     </div>
-    <h2 class="section-title">Copilot for Sales / Sales Agent が示すこと：<br>AI 時代にも CRM データは重要である</h2>
+    <h2 class="section-title">営業特化型社内生産性AI / 二層の AI が連携する意義：<br>AI 時代にも CRM データは重要である</h2>
     <p class="section-lead">
-      Microsoft 自身が、Copilot の機能要件として <strong>CRM データへの到達</strong>を製品設計に組み込んでいる。<br>
-      この事実こそ、「社内文脈の Graph」と「顧客接点文脈の CRM」が <strong>両方必要</strong>であることの最も明確なエビデンスだ。
+      主要AIベンダー自身が、<strong>CRM データとの連携</strong>を製品設計の前提として組み込んでいる。<br>
+      この事実こそ、「社内文脈の業務データ基盤」と「顧客接点文脈の CRM」が <strong>両方必要</strong>であることの最も明確なエビデンスだ。
     </p>
 
     <p class="body-text">
-      ここまでの章で、社内生産性 AI と顧客接点 AI の違い、5 つの設計原則、必要となる顧客文脈データを整理してきた。本章はそれらの抽象論ではなく、<strong>Microsoft 公式ドキュメントが示している事実</strong>から、二層モデルの妥当性を検証する。
+      ここまでの章で、社内生産性 AI と顧客接点 AI の違い、5 つの設計原則、必要となる顧客文脈データを整理してきた。本章はそれらの抽象論ではなく、<strong>主要AIベンダー公式ドキュメントが示している事実</strong>から、二層モデルの妥当性を検証する。
     </p>
 
-    <h3 class="section-h3" style="color:#fff;">事実 ①：Salesforce CRM Connector が CRM オブジェクトをインデックスする</h3>
+    <h3 class="section-h3" style="color:#fff;">事実 ①：顧客接点 CRM Connector が CRM オブジェクトをインデックスする</h3>
 
     <div class="pull-quote">
       <div class="pull-quote-text">
-        "The Salesforce CRM Microsoft 365 Copilot connector enables your organization to <span>index contacts, opportunities, leads, cases, and accounts</span> objects in your Salesforce instance."
+        「顧客接点 CRM コネクタにより、contacts・opportunities・leads・cases・accounts などの主要オブジェクトを社内生産性AI上でインデックス化し、参照できるようになる」
       </div>
-      <div class="pull-quote-source">— Microsoft Learn: Salesforce CRM Microsoft 365 Copilot connector<sup class="fn-ref"><a href="#fn-9">9</a></sup></div>
+      <div class="pull-quote-source">— 主要AIベンダー 公式ドキュメント: 顧客接点 CRM コネクタ仕様<sup class="fn-ref"><a href="#fn-9">9</a></sup></div>
     </div>
 
     <p class="body-text">
-      Microsoft 365 Copilot 自体が、社内の Microsoft Graph データだけでは完結せず、<strong>contacts / opportunities / leads / cases / accounts</strong> という顧客接点の主要オブジェクトをインデックスする Connector を公式に提供している<sup class="fn-ref"><a href="#fn-9">9</a></sup>。これは技術的な選択肢ではなく、<strong>製品設計上の前提</strong>として組み込まれている。
+      社内生産性AI 自体が、社内の 社内業務データ基盤 データだけでは完結せず、<strong>contacts / opportunities / leads / cases / accounts</strong> という顧客接点の主要オブジェクトをインデックスする Connector を公式に提供している<sup class="fn-ref"><a href="#fn-9">9</a></sup>。これは技術的な選択肢ではなく、<strong>製品設計上の前提</strong>として組み込まれている。
     </p>
 
-    <h3 class="section-h3" style="color:#fff;">事実 ②：Sales Agent は Dynamics 365 と Salesforce の両方に対応する</h3>
+    <h3 class="section-h3" style="color:#fff;">事実 ②：営業特化型エージェント機能は複数の CRM プラットフォームに対応する</h3>
 
     <div class="pull-quote">
       <div class="pull-quote-text">
-        "The new Sales Agent for Copilot can automate workflows like turning your contacts into Sales Leads in <span>either Dynamics or Salesforce</span>."
+        「社内生産性AIの営業エージェント機能は、<span>複数のCRMプラットフォーム</span>にまたがり、連絡先から営業リードへの変換ワークフローを自動化できる」
       </div>
-      <div class="pull-quote-source">— Microsoft 365 Blog (2025-03-05): New autonomous agents in Microsoft 365 Copilot<sup class="fn-ref"><a href="#fn-1">1</a></sup></div>
+      <div class="pull-quote-source">— 大手AIプラットフォームベンダー 公式ブログ（2025年3月）<sup class="fn-ref"><a href="#fn-1">1</a></sup></div>
     </div>
 
     <p class="body-text">
-      Microsoft が新たに提供する <strong>Sales Agent for Microsoft 365 Copilot</strong>は、Dynamics 365 だけでなく Salesforce CRM へも書き込みを行う<sup class="fn-ref"><a href="#fn-1">1</a></sup>。Microsoft 自身が <strong>「自社 CRM だけでは顧客接点 AI は完結しない」</strong>という事実を、製品仕様で明確に認めているということだ。
+      主要AIベンダーが新たに提供する <strong>営業特化型エージェント機能</strong>は、複数の顧客接点 CRM プラットフォームへも書き込みを行う<sup class="fn-ref"><a href="#fn-1">1</a></sup>。主要AIベンダー自身が <strong>「自社 CRM だけでは顧客接点 AI は完結しない」</strong>という事実を、製品仕様で明確に認めているということだ。
     </p>
 
     <hr class="section-divider">
@@ -1362,7 +1362,7 @@
         </div>
         <div class="card-title">含意 ①：Connector は読み取り中心 + 限定的書き込み</div>
         <div class="card-body">
-          Connector のメインは <strong>contacts / opportunities / leads / cases / accounts のインデックス（読み取り）</strong>だ<sup class="fn-ref"><a href="#fn-9">9</a></sup>。Sales Agent による Lead 化のような書き込みも一部あるが、CRM の業務ロジック全体を巻き取る設計ではない。
+          Connector のメインは <strong>contacts / opportunities / leads / cases / accounts のインデックス（読み取り）</strong>だ<sup class="fn-ref"><a href="#fn-9">9</a></sup>。営業エージェント機能による Lead 化のような書き込みも一部あるが、CRM の業務ロジック全体を巻き取る設計ではない。
         </div>
       </div>
       <div class="card">
@@ -1371,7 +1371,7 @@
         </div>
         <div class="card-title">含意 ②：業務ロジックは CRM ネイティブ側に残る</div>
         <div class="card-body">
-          取引フェーズ管理・ケース解決WF・与信・契約・割引承認・同意管理は、依然として <strong>CRM ネイティブの業務ロジック</strong>として動く。Connector で読めるからといって、業務ロジックそのものが Copilot 側に移るわけではない。
+          取引フェーズ管理・ケース解決WF・与信・契約・割引承認・同意管理は、依然として <strong>CRM ネイティブの業務ロジック</strong>として動く。Connector で読めるからといって、業務ロジックそのものが 社内生産性AI 側に移るわけではない。
         </div>
       </div>
       <div class="card">
@@ -1380,7 +1380,7 @@
         </div>
         <div class="card-title">含意 ③：社内文脈と顧客接点文脈は両方必要</div>
         <div class="card-body">
-          Microsoft Graph（社内文脈）と CRM（顧客接点文脈）は、<strong>どちらか一方</strong>では完結しない。これは Microsoft vs Salesforce の対立ではなく、<strong>設計上の二層モデル</strong>として整理されるべき関係だ。
+          社内業務データ基盤（社内文脈）と CRM（顧客接点文脈）は、<strong>どちらか一方</strong>では完結しない。これは ベンダー間の選択 の対立ではなく、<strong>設計上の二層モデル</strong>として整理されるべき関係だ。
         </div>
       </div>
     </div>
@@ -1391,7 +1391,7 @@
         本章のメッセージ
       </div>
       <div class="highlight-box-body" style="color:rgba(255,255,255,0.85);">
-        この二つの公式記述<sup class="fn-ref"><a href="#fn-9">9</a></sup><sup class="fn-ref"><a href="#fn-1">1</a></sup>から導かれる結論は明快だ。<strong style="color:#fff;">問題は「Microsoft か Salesforce か」ではなく、「どの AI を、どの業務レイヤーに置くか」だ</strong>。Copilot を全社展開した企業ほど、次に向き合うべき問いは「<strong style="color:#fff;">CRM データを AI が使える顧客文脈に変える設計</strong>」になる。
+        この二つの公式記述<sup class="fn-ref"><a href="#fn-9">9</a></sup><sup class="fn-ref"><a href="#fn-1">1</a></sup>から導かれる結論は明快だ。<strong style="color:#fff;">問題は「どのベンダーを選ぶか」ではなく、「どの AI を、どの業務レイヤーに置くか」だ</strong>。社内生産性AIを全社展開した企業ほど、次に向き合うべき問いは「<strong style="color:#fff;">CRM データを AI が使える顧客文脈に変える設計</strong>」になる。
       </div>
     </div>
 
@@ -1403,7 +1403,7 @@
       <div class="cta-block-eyebrow">章末ダウンロード</div>
       <div class="cta-block-title">AI 役割分担マップ（PDF DL）</div>
       <div class="cta-block-body">
-        Microsoft 365 / Copilot と顧客接点 AI を、社内文脈レイヤーと顧客接点文脈レイヤーで整理するワークシート。「社内 AI で何を担い、顧客接点 AI で何を担うか」を可視化し、社内合意形成に使えます。
+        社内生産性AI と顧客接点 AI を、社内文脈レイヤーと顧客接点文脈レイヤーで整理するワークシート。「社内 AI で何を担い、顧客接点 AI で何を担うか」を可視化し、社内合意形成に使えます。
       </div>
       <a href="#ch6" class="cta-block-btn">
         ダウンロードして次章へ
@@ -1422,11 +1422,11 @@
     <h2 class="section-title">顧客業務をAIで動かすために必要な、<br>データ・業務・ガバナンスの基盤</h2>
     <p class="section-lead">
       二層モデルを実装するうえで、見落とされやすいのが「<strong>データ・業務・ガバナンス</strong>の3層構造」だ。<br>
-      Microsoft 系・Salesforce 系それぞれの公式表現に基づいて、中立的に整理する。
+      二層それぞれの公式表現に基づいて、中立的に整理する。
     </p>
 
     <p class="body-text">
-      本章は <strong>3 つの基盤レイヤー</strong>に分けて整理する。①分析データレイク／顧客接点リアルタイム業務基盤、②業務ロジックの所在、③ガバナンス（ID・権限・監査）。それぞれで、Microsoft 系と Salesforce 系の役割を <strong>公式記述ベース</strong>で並べる。優劣ではなく <strong>役割分担</strong>として整理することが、両方を活かす設計の出発点になる。
+      本章は <strong>3 つの基盤レイヤー</strong>に分けて整理する。①分析データレイク／顧客接点リアルタイム業務基盤、②業務ロジックの所在、③ガバナンス（ID・権限・監査）。それぞれで、社内生産性AIレイヤーと顧客接点AIレイヤーの役割を <strong>公式記述ベース</strong>で並べる。優劣ではなく <strong>役割分担</strong>として整理することが、両方を活かす設計の出発点になる。
     </p>
 
     <h3 class="section-h3">① データ基盤：分析データレイク vs 顧客接点リアルタイム基盤</h3>
@@ -1435,15 +1435,15 @@
       <thead>
         <tr>
           <th>観点</th>
-          <th class="ms-col">OneLake / Microsoft Fabric</th>
-          <th>Salesforce Data 360 のような顧客接点リアルタイム基盤</th>
+          <th class="ms-col">社内分析データ基盤</th>
+          <th>顧客接点リアルタイムデータ基盤</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>公式の位置づけ</td>
           <td>"single, unified, logical data lake for analytics data"<sup class="fn-ref"><a href="#fn-6">6</a></sup></td>
-          <td>"real-time data engine that powers the entire Salesforce platform"<sup class="fn-ref"><a href="#fn-10">10</a></sup></td>
+          <td>「顧客接点プラットフォーム全体を支えるリアルタイムデータエンジン」<sup class="fn-ref"><a href="#fn-10">10</a></sup></td>
         </tr>
         <tr>
           <td>主な用途</td>
@@ -1462,7 +1462,7 @@
         </tr>
         <tr>
           <td>役割の関係</td>
-          <td colspan="2" style="text-align:center;font-weight:700;color:var(--sf-blue);">置換ではなく <strong style="color:var(--text-primary);">補完関係</strong>。OneLake のデータも Zero Copy 等で参照可能。</td>
+          <td colspan="2" style="text-align:center;font-weight:700;color:var(--sf-blue);">置換ではなく <strong style="color:var(--text-primary);">補完関係</strong>。社内データレイク のデータも Zero Copy 等で参照可能。</td>
         </tr>
       </tbody>
     </table>
@@ -1482,7 +1482,7 @@
     <h3 class="section-h3">② 業務基盤：CRM ネイティブの業務ロジック</h3>
 
     <p class="body-text">
-      取引フェーズ管理・ケース解決ワークフロー・承認プロセス・与信判定・契約・割引承認・同意管理は、長年にわたり CRM ネイティブの業務ロジックとして実装されてきた。Ch5 で見たように、Microsoft 365 Copilot Salesforce Connector は <strong>これらを全部巻き取る設計にはなっていない</strong><sup class="fn-ref"><a href="#fn-9">9</a></sup>。これは制約ではなく、二層モデルの自然な帰結だ。
+      取引フェーズ管理・ケース解決ワークフロー・承認プロセス・与信判定・契約・割引承認・同意管理は、長年にわたり CRM ネイティブの業務ロジックとして実装されてきた。Ch5 で見たように、社内生産性AIの顧客接点 CRM Connector は <strong>これらを全部巻き取る設計にはなっていない</strong><sup class="fn-ref"><a href="#fn-9">9</a></sup>。これは制約ではなく、二層モデルの自然な帰結だ。
     </p>
 
     <hr class="section-divider">
@@ -1493,24 +1493,24 @@
       <thead>
         <tr>
           <th>観点</th>
-          <th class="ms-col">Microsoft 側</th>
-          <th>Salesforce 側</th>
+          <th class="ms-col">主要AIベンダー 側</th>
+          <th>顧客接点AI側</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>ID / アクセス制御</td>
-          <td>Microsoft Entra ID<sup class="fn-ref"><a href="#fn-8">8</a></sup></td>
+          <td>IDアクセス管理基盤<sup class="fn-ref"><a href="#fn-8">8</a></sup></td>
           <td>CRM 権限モデル（OWD / 共有ルール / フィールド権限）</td>
         </tr>
         <tr>
           <td>データ統制 / コンプライアンス</td>
-          <td>Microsoft Purview<sup class="fn-ref"><a href="#fn-7">7</a></sup></td>
-          <td>Einstein Trust Layer（Zero Data Retention 等）<sup class="fn-ref"><a href="#fn-11">11</a></sup></td>
+          <td>データガバナンス基盤<sup class="fn-ref"><a href="#fn-7">7</a></sup></td>
+          <td>顧客接点AIトラスト制御レイヤー（Zero Data Retention 等）<sup class="fn-ref"><a href="#fn-11">11</a></sup></td>
         </tr>
         <tr>
           <td>主な対象</td>
-          <td>社員業務文脈（M365 / Graph）</td>
+          <td>社員業務文脈（社内業務データ基盤）</td>
           <td>顧客接点文脈（CRM）</td>
         </tr>
         <tr>
@@ -1525,23 +1525,23 @@
     <h3 class="section-h3">想定される反論への返答（Q&A）</h3>
 
     <div class="qa-item">
-      <div class="qa-q">Microsoft Fabric / OneLake があれば、CRM のリアルタイム基盤は不要では？</div>
+      <div class="qa-q">社内分析データ基盤 / 社内データレイク があれば、CRM のリアルタイム基盤は不要では？</div>
       <div class="qa-a">
-        役割が違う、というのが妥当な答えだ。OneLake は <em>"single, unified, logical data lake for analytics data"</em><sup class="fn-ref"><a href="#fn-6">6</a></sup> として分析・BI に強い。一方、顧客接点 AI が必要とするのは「商談・ケースの最新状態をリアルタイムで読む／書く」業務基盤で、これは別レイヤーで設計するのが自然だ。OneLake のデータは Zero Copy で参照可能なため、<strong>置換ではなく補完</strong>として組み合わせるのが現実的な姿になる。
+        役割が違う、というのが妥当な答えだ。社内データレイク は <em>"single, unified, logical data lake for analytics data"</em><sup class="fn-ref"><a href="#fn-6">6</a></sup> として分析・BI に強い。一方、顧客接点 AI が必要とするのは「商談・ケースの最新状態をリアルタイムで読む／書く」業務基盤で、これは別レイヤーで設計するのが自然だ。社内データレイク のデータは Zero Copy で参照可能なため、<strong>置換ではなく補完</strong>として組み合わせるのが現実的な姿になる。
       </div>
     </div>
 
     <div class="qa-item">
-      <div class="qa-q">Teams が標準だから、別の現場連携 UI は不要では？</div>
+      <div class="qa-q">グループウェア が標準だから、別の現場連携 UI は不要では？</div>
       <div class="qa-a">
-        Teams が社員コラボレーションの標準であることは前提として、ここでの論点は別だ。<strong>顧客接点 AI の示唆を、現場の対応担当者が業務文脈の中で受け取る UI</strong>と、社員間コラボツールは設計目的が異なる。「Teams か別の UI か」ではなく、Teams は社員コラボに、顧客接点 AI の Agent UI は CRM データに紐付いた業務文脈に、それぞれ最適化されている、という<strong>役割分担</strong>として捉える方が実態に合う。
+        グループウェア が社員コラボレーションの標準であることは前提として、ここでの論点は別だ。<strong>顧客接点 AI の示唆を、現場の対応担当者が業務文脈の中で受け取る UI</strong>と、社員間コラボツールは設計目的が異なる。「グループウェア か別の UI か」ではなく、グループウェア は社員コラボに、顧客接点 AI の Agent UI は CRM データに紐付いた業務文脈に、それぞれ最適化されている、という<strong>役割分担</strong>として捉える方が実態に合う。
       </div>
     </div>
 
     <div class="qa-item">
-      <div class="qa-q">Microsoft 一体化のために、Dynamics 365 に寄せた方が運用は楽では？</div>
+      <div class="qa-q">主要AIベンダー 一体化のために、社内CRM基盤 に寄せた方が運用は楽では？</div>
       <div class="qa-a">
-        既存の CRM 上に蓄積された <strong>データ・業務ロジック・カスタマイズ・権限モデル</strong>の規模次第で、移行コストは並行運用コストを大きく上回ることがある。さらに Ch5 で見たように、Microsoft 自身が Sales Agent を <strong>Dynamics と Salesforce 両対応</strong>に設計している<sup class="fn-ref"><a href="#fn-1">1</a></sup>のは、両者の並行運用が現実的シナリオとして想定されているためだ。「寄せる」より、<strong>役割分担で並行運用</strong>を前提に設計する方が、リスクと投資の両面でバランスが良い場合が多い。
+        既存の CRM 上に蓄積された <strong>データ・業務ロジック・カスタマイズ・権限モデル</strong>の規模次第で、移行コストは並行運用コストを大きく上回ることがある。さらに Ch5 で見たように、主要AIベンダー自身が Sales Agent を <strong>社内CRM基盤 と 複数CRM対応</strong>に設計している<sup class="fn-ref"><a href="#fn-1">1</a></sup>のは、両者の並行運用が現実的シナリオとして想定されているためだ。「寄せる」より、<strong>役割分担で並行運用</strong>を前提に設計する方が、リスクと投資の両面でバランスが良い場合が多い。
       </div>
     </div>
 
@@ -1549,7 +1549,7 @@
       <div class="cta-block-eyebrow">章末 Workshop</div>
       <div class="cta-block-title">AI Governance Workshop（90 分・無料・オンライン）</div>
       <div class="cta-block-body">
-        二層 AI 並行運用時のガバナンス設計を実務テーマとして扱う Workshop。社内 AI 統制レイヤーと顧客接点 AI 統制レイヤーそれぞれのデータガバナンス・権限モデル・監査ログをどう設計し組み合わせるか、社内 AI 担当・法務・情シスの三者で議論できる構成です。
+        両ベンダ並行運用時のガバナンス設計を実務テーマとして扱う Workshop。データガバナンス基盤 / 顧客接点AIのトラスト制御レイヤー / IDアクセス管理基盤 / CRM 権限モデルをどう組み合わせるか、社内 AI 担当・法務・情シスの三者で議論できる構成です。
       </div>
       <a href="#ch7" class="cta-block-btn">
         Workshop に申し込む / 次章へ進む
@@ -1572,7 +1572,7 @@
     </p>
 
     <p class="body-text">
-      ここからは、Ch1〜Ch6 で整理した設計論を <strong>具体的に実装するための選択肢</strong>として、Salesforce が提供する役割を整理する。Microsoft 環境を否定するためではなく、<strong>Microsoft 365 / Copilot と並行運用する前提</strong>で、顧客接点 AI レイヤーを担う候補として位置づける。
+      ここからは、Ch1〜Ch6 で整理した設計論を <strong>具体的に実装するための選択肢</strong>として、Salesforce が提供する役割を整理する。主要AIベンダー 環境を否定するためではなく、<strong>社内生産性AI と並行運用する前提</strong>で、顧客接点 AI レイヤーを担う候補として位置づける。
     </p>
 
     <h3 class="section-h3">設計論で必要な役割 → Salesforce の提供</h3>
@@ -1594,7 +1594,7 @@
         <tr><td>逸脱防止・エスカレーション設計</td><td>Agent Guardrails</td></tr>
         <tr><td>外部システムへのアクション接続層</td><td>MuleSoft<sup class="fn-ref"><a href="#fn-14">14</a></sup></td></tr>
         <tr><td>AI の示唆を可視化する層</td><td>Tableau<sup class="fn-ref"><a href="#fn-15">15</a></sup></td></tr>
-        <tr><td>現場連携・Agent UI 層（Teams 置換ではない）</td><td>Slack<sup class="fn-ref"><a href="#fn-16">16</a></sup></td></tr>
+        <tr><td>現場連携・Agent UI 層（グループウェア 置換ではない）</td><td>Slack<sup class="fn-ref"><a href="#fn-16">16</a></sup></td></tr>
       </tbody>
     </table>
 
@@ -1672,10 +1672,10 @@
 
     <hr class="section-divider">
 
-    <h3 class="section-h3">Microsoft 環境との共存パターン</h3>
+    <h3 class="section-h3">主要AIベンダー 環境との共存パターン</h3>
 
     <p class="body-text">
-      Salesforce を顧客接点 AI レイヤーとして導入する際、Microsoft 環境を <strong>置き換える必要はない</strong>。むしろ、Microsoft 公式が想定している共存パターンを活かすことで、両方の強みを引き出す設計が可能になる。
+      Salesforce を顧客接点 AI レイヤーとして導入する際、主要AIベンダー 環境を <strong>置き換える必要はない</strong>。むしろ、主要AIベンダー公式が想定している共存パターンを活かすことで、両方の強みを引き出す設計が可能になる。
     </p>
 
     <div class="card-grid">
@@ -1683,27 +1683,27 @@
         <div class="card-icon slate">
           <i data-lucide="link" style="width:22px;height:22px;"></i>
         </div>
-        <div class="card-title">① Copilot for Sales / Sales Agent との接続</div>
+        <div class="card-title">① 営業特化型社内生産性AI / Sales Agent との接続</div>
         <div class="card-body">
-          Microsoft 365 Copilot から Salesforce CRM へ contacts / opportunities / leads / cases / accounts を Connector でインデックス<sup class="fn-ref"><a href="#fn-9">9</a></sup>。社員は M365 上で顧客文脈を参照し、業務実行は CRM 側で完結する。
+          社内生産性 AI と顧客接点 CRM を Connector でインデックス連携し、contacts / opportunities / leads / cases / accounts 等の主要オブジェクトを参照可能にする<sup class="fn-ref"><a href="#fn-9">9</a></sup>。社員は社内生産性AI上で顧客文脈を参照し、業務実行は CRM 側で完結する。
         </div>
       </div>
       <div class="card">
         <div class="card-icon slate">
           <i data-lucide="database-zap" style="width:22px;height:22px;"></i>
         </div>
-        <div class="card-title">② OneLake / Fabric から Zero Copy で参照</div>
+        <div class="card-title">② 社内分析データ基盤から Zero Copy で参照</div>
         <div class="card-body">
-          OneLake / Fabric 上の分析データを ETL なしで Data 360 から参照<sup class="fn-ref"><a href="#fn-10">10</a></sup>。分析は Microsoft 側、業務リアルタイム実行は Salesforce 側、というレイヤー分担を維持できる。
+          社内分析データ基盤上の分析データを ETL なしで顧客接点データプラットフォームから参照<sup class="fn-ref"><a href="#fn-10">10</a></sup>。分析は社内生産性AIレイヤー、業務リアルタイム実行は顧客接点AIレイヤー、というレイヤー分担を維持できる。
         </div>
       </div>
       <div class="card">
         <div class="card-icon slate">
           <i data-lucide="key-round" style="width:22px;height:22px;"></i>
         </div>
-        <div class="card-title">③ Microsoft Entra ID + Einstein Trust Layer</div>
+        <div class="card-title">③ IDアクセス管理基盤 + Einstein Trust Layer</div>
         <div class="card-body">
-          ID 認証は Microsoft Entra ID<sup class="fn-ref"><a href="#fn-8">8</a></sup>、データガバナンスは Microsoft Purview<sup class="fn-ref"><a href="#fn-7">7</a></sup>と Salesforce Einstein Trust Layer<sup class="fn-ref"><a href="#fn-11">11</a></sup>を併用。社内側・顧客接点側それぞれの統制を活かす。
+          ID 認証は IDアクセス管理基盤<sup class="fn-ref"><a href="#fn-8">8</a></sup>、データガバナンスは データガバナンス基盤<sup class="fn-ref"><a href="#fn-7">7</a></sup>と Salesforce Einstein Trust Layer<sup class="fn-ref"><a href="#fn-11">11</a></sup>を併用。社内側・顧客接点側それぞれの統制を活かす。
         </div>
       </div>
     </div>
@@ -1712,7 +1712,7 @@
       <div class="cta-block-eyebrow">章末 Workshop</div>
       <div class="cta-block-title">顧客接点AI ユースケース選定 Workshop</div>
       <div class="cta-block-body">
-        自社の業務領域（カスタマーサービス・営業・マーケティング・EC）から、PoC で着手すべきユースケースを <strong>ワークシート形式で選定</strong>する社内開催型 Workshop。Microsoft 環境との共存設計まで含めて議論できます。
+        自社の業務領域（カスタマーサービス・営業・マーケティング・EC）から、PoC で着手すべきユースケースを <strong>ワークシート形式で選定</strong>する社内開催型 Workshop。主要AIベンダー 環境との共存設計まで含めて議論できます。
       </div>
       <a href="#ch8" class="cta-block-btn">
         Workshop に申し込む / 次章のチェックリストへ
@@ -1728,10 +1728,10 @@
       <div class="chapter-num-badge">8</div>
       Chapter 08
     </div>
-    <h2 class="section-title">Microsoft 中心の企業がまず確認すべき<br>AI 活用設計チェックリスト</h2>
+    <h2 class="section-title">主要AIベンダー 中心の企業がまず確認すべき<br>AI 活用設計チェックリスト</h2>
     <p class="section-lead">
       これらの確認は、ベンダ選定ではなく <strong>設計プロセスそのもの</strong>だ。<br>
-      Microsoft 中心で AI 投資を進める企業ほど、顧客接点 AI 設計の論点として活用できる。
+      主要AIベンダー 中心で AI 投資を進める企業ほど、顧客接点 AI 設計の論点として活用できる。
     </p>
 
     <p class="body-text">
@@ -1743,7 +1743,7 @@
     <ul class="checklist numbered">
       <li>
         <span class="check-icon">1</span>
-        <div><strong>社内生産性 AI と顧客接点 AI を別レイヤー</strong>として設計しているか。Copilot 全社展開と顧客接点 AI が、同じプロジェクトに統合されてしまっていないか。</div>
+        <div><strong>社内生産性 AI と顧客接点 AI を別レイヤー</strong>として設計しているか。社内生産性AI 全社展開と顧客接点 AI が、同じプロジェクトに統合されてしまっていないか。</div>
       </li>
       <li>
         <span class="check-icon">2</span>
@@ -1771,11 +1771,11 @@
       </li>
       <li>
         <span class="check-icon">8</span>
-        <div><strong>ガバナンス基準</strong>（Microsoft Purview / Einstein Trust Layer / 法務承認プロセス）が部門横断で統一されているか。Microsoft 側と顧客接点側で<strong>両方</strong>の制御が設計されているか。</div>
+        <div><strong>ガバナンス基準</strong>（データガバナンス基盤 / Einstein Trust Layer / 法務承認プロセス）が部門横断で統一されているか。主要AIベンダー 側と顧客接点側で<strong>両方</strong>の制御が設計されているか。</div>
       </li>
       <li>
         <span class="check-icon">9</span>
-        <div><strong>既存 DWH</strong>（Microsoft Fabric / OneLake / Snowflake / Databricks）との連携設計が決まっているか。Zero Copy 等で参照する前提で、データ移動の最小化が設計されているか。</div>
+        <div><strong>既存 DWH</strong>（社内分析データ基盤 / 社内データレイク / Snowflake / Databricks）との連携設計が決まっているか。Zero Copy 等で参照する前提で、データ移動の最小化が設計されているか。</div>
       </li>
       <li>
         <span class="check-icon">10</span>
@@ -1815,7 +1815,7 @@
         本書の結論
       </div>
       <div class="highlight-box-body">
-        ここまでの確認は、<strong>ベンダ選定ではなく設計プロセス</strong>そのものだ。Microsoft 中心の企業ほど、Copilot を全社展開した次に、<strong>顧客接点 AI レイヤーを別設計として持つかどうか</strong>が、AI 投資の伸ばし方を決める。製品の優劣ではなく、<strong>レイヤーの役割分担</strong>として整理することが、本書の結論である。
+        ここまでの確認は、<strong>ベンダ選定ではなく設計プロセス</strong>そのものだ。主要AIベンダー 中心の企業ほど、社内生産性AI を全社展開した次に、<strong>顧客接点 AI レイヤーを別設計として持つかどうか</strong>が、AI 投資の伸ばし方を決める。製品の優劣ではなく、<strong>レイヤーの役割分担</strong>として整理することが、本書の結論である。
       </div>
     </div>
 
@@ -1852,7 +1852,7 @@
         <div class="ec-body">
           まずは関連 eBook やホワイトペーパーで、社内の議論を深めたい方へ。<br>
           ・「顧客接点AI設計のための関連リソース」<br>
-          ・「社内AI×顧客接点AI 二層設計の参考資料集」
+          ・「社内生産性AI × 顧客接点AI 二層設計の参考資料集」
         </div>
         <a href="#" class="ec-btn">
           関連リソースを見る
@@ -1907,25 +1907,25 @@
     <div id="footnotes">
       <h3 class="section-h3">脚注・出典一覧</h3>
       <p class="body-text" style="font-size:13px;color:var(--text-muted);">
-        本書中で引用したすべての一次情報源を以下に記載する。すべての URL は <strong>2026-06-04 取得時</strong>の内容に基づく。Microsoft 系・Salesforce 系・公的機関を含む。
+        本書中で引用したすべての一次情報源を以下に記載する。すべての URL は <strong>2026-06-04 取得時</strong>の内容に基づく。主要AIベンダー 系・Salesforce 系・公的機関を含む。
       </p>
       <ol class="footnotes">
-        <li id="fn-1">Microsoft 365 Blog (2025-03-05): "New autonomous agents in Microsoft 365 Copilot." Fortune 500 の nearly 70% が利用、Copilot Studio で over 400,000 custom agents、Sales Agent が Dynamics と Salesforce の両方に対応する旨の記述あり。 <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2025/03/05/new-sales-agents-in-microsoft-365-copilot/" target="_blank">https://www.microsoft.com/en-us/microsoft-365/blog/2025/03/05/new-sales-agents-in-microsoft-365-copilot/</a></li>
-        <li id="fn-2">Microsoft Learn: "Microsoft Graph Overview." Microsoft Graph は Microsoft 365 / Entra のゲートウェイとして、emails / chats / documents / meetings 等の社員業務文脈データへ統一 API でアクセスを提供する。 <a href="https://learn.microsoft.com/en-us/graph/overview" target="_blank">https://learn.microsoft.com/en-us/graph/overview</a></li>
+        <li id="fn-1">大手AIベンダー公式ブログ (2025-03-05): "New autonomous agents in 社内生産性AI." Fortune 500 の nearly 70% が利用、AIエージェント構築基盤 で over 400,000 custom agents、Sales Agent が 社内CRM基盤 と Salesforce の両方に対応する旨の記述あり。 <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2025/03/05/new-sales-agents-in-microsoft-365-copilot/" target="_blank">https://www.microsoft.com/en-us/microsoft-365/blog/2025/03/05/new-sales-agents-in-microsoft-365-copilot/</a></li>
+        <li id="fn-2">主要AIベンダー Learn: "社内業務データ基盤 Overview." 社内業務データ基盤 は 社内生産性基盤 / Entra のゲートウェイとして、emails / chats / documents / meetings 等の社員業務文脈データへ統一 API でアクセスを提供する。 <a href="https://learn.microsoft.com/en-us/graph/overview" target="_blank">https://learn.microsoft.com/en-us/graph/overview</a></li>
         <li id="fn-3">IPA「DX動向 2025」公式ページ。テーマ「内向き・部分最適から外向き・全体最適へ」。 <a href="https://www.ipa.go.jp/digital/dx/about.html" target="_blank">https://www.ipa.go.jp/digital/dx/about.html</a></li>
-        <li id="fn-4">Microsoft Learn: "Microsoft 365 Copilot Overview." Microsoft Graph 経由で社員業務文脈を文脈化する旨の記述あり。 <a href="https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-overview" target="_blank">https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-overview</a></li>
-        <li id="fn-5">Microsoft Learn: "What is Copilot Studio?" graphical, low-code tool for building agents and agent flows と記述。 <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio" target="_blank">https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio</a></li>
-        <li id="fn-6">Microsoft Learn: "OneLake Overview." single, unified, logical data lake for analytics data と記述。Shortcuts で ADLS / S3 / Dataverse 等を参照可能。 <a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview" target="_blank">https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview</a></li>
-        <li id="fn-7">Microsoft Learn: "Microsoft Purview." M365 Copilot のデータセキュリティ／コンプライアンス制御層。 <a href="https://learn.microsoft.com/en-us/purview/" target="_blank">https://learn.microsoft.com/en-us/purview/</a></li>
-        <li id="fn-8">Microsoft Learn: "Microsoft Entra." M365 Copilot の ID／アクセス制御の前提となる。 <a href="https://learn.microsoft.com/en-us/entra/" target="_blank">https://learn.microsoft.com/en-us/entra/</a></li>
-        <li id="fn-9">Microsoft Learn: "Salesforce CRM Microsoft 365 Copilot connector." 引用：「The Salesforce CRM Microsoft 365 Copilot connector enables your organization to index contacts, opportunities, leads, cases, and accounts objects in your Salesforce instance.」 <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/salesforce-connector" target="_blank">https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/salesforce-connector</a></li>
-        <li id="fn-10">Salesforce Data 公式ページ。Data 360 を "real-time data engine that powers the entire Salesforce platform" と説明。Zero Copy による Snowflake / Databricks / Google Cloud / AWS との連携の記述あり。 <a href="https://www.salesforce.com/data/" target="_blank">https://www.salesforce.com/data/</a></li>
+        <li id="fn-4">主要AIベンダー Learn: "社内生産性AI Overview." 社内業務データ基盤 経由で社員業務文脈を文脈化する旨の記述あり。 <a href="https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-overview" target="_blank">https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-overview</a></li>
+        <li id="fn-5">主要AIベンダー Learn: "What is AIエージェント構築基盤?" graphical, low-code tool for building agents and agent flows と記述。 <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio" target="_blank">https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio</a></li>
+        <li id="fn-6">主要AIベンダー Learn: "社内データレイク Overview." single, unified, logical data lake for analytics data と記述。Shortcuts で ADLS / S3 / Dataverse 等を参照可能。 <a href="https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview" target="_blank">https://learn.microsoft.com/en-us/fabric/onelake/onelake-overview</a></li>
+        <li id="fn-7">主要AIベンダー Learn: "データガバナンス基盤." 社内生産性AI のデータセキュリティ／コンプライアンス制御層。 <a href="https://learn.microsoft.com/en-us/purview/" target="_blank">https://learn.microsoft.com/en-us/purview/</a></li>
+        <li id="fn-8">主要AIベンダー Learn: "IDアクセス管理基盤." 社内生産性AI の ID／アクセス制御の前提となる。 <a href="https://learn.microsoft.com/en-us/entra/" target="_blank">https://learn.microsoft.com/en-us/entra/</a></li>
+        <li id="fn-9">主要AIベンダー Learn: "顧客接点 CRM 社内生産性AI connector." 引用：「The 顧客接点 CRM 社内生産性AI connector enables your organization to index contacts, opportunities, leads, cases, and accounts objects in your Salesforce instance.」 <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/salesforce-connector" target="_blank">https://learn.microsoft.com/en-us/microsoft-365/copilot/connectors/salesforce-connector</a></li>
+        <li id="fn-10">Salesforce Data 公式ページ。Data 360 を 「顧客接点プラットフォーム全体を支えるリアルタイムデータエンジン」 と説明。Zero Copy による Snowflake / Databricks / Google Cloud / AWS との連携の記述あり。 <a href="https://www.salesforce.com/data/" target="_blank">https://www.salesforce.com/data/</a></li>
         <li id="fn-11">Salesforce Einstein Trust Layer 公式ページ。顧客データを安全に AI へ使わせる制御層。Zero Data Retention 等の記述あり。 <a href="https://www.salesforce.com/artificial-intelligence/trusted-ai/" target="_blank">https://www.salesforce.com/artificial-intelligence/trusted-ai/</a></li>
         <li id="fn-12">Salesforce Customer 360 公式ページ。営業／サービス／マーケティング／コマース／IT を束ねる顧客接点データ統合基盤。 <a href="https://www.salesforce.com/products/" target="_blank">https://www.salesforce.com/products/</a></li>
         <li id="fn-13">Salesforce Agentforce 公式ページ。Atlas Reasoning Engine の説明（understand, decide, and act autonomously）を含む。Agentforce 導入数 5,000+ は FY25 時点。 <a href="https://www.salesforce.com/agentforce/" target="_blank">https://www.salesforce.com/agentforce/</a></li>
         <li id="fn-14">Salesforce MuleSoft 公式ページ。 <a href="https://www.salesforce.com/mulesoft/" target="_blank">https://www.salesforce.com/mulesoft/</a></li>
         <li id="fn-15">Salesforce Tableau 公式ページ。 <a href="https://www.tableau.com/" target="_blank">https://www.tableau.com/</a></li>
-        <li id="fn-16">Salesforce Slack 公式ページ。Slack は現場連携・Agent UI レイヤーとして位置づけ、Teams 置換の用途ではない。 <a href="https://slack.com/" target="_blank">https://slack.com/</a></li>
+        <li id="fn-16">Salesforce Slack 公式ページ。Slack は現場連携・Agent UI レイヤーとして位置づけ、グループウェア 置換の用途ではない。 <a href="https://slack.com/" target="_blank">https://slack.com/</a></li>
         <li id="fn-17">Salesforce Customer Stories: Agentforce 導入事例集（Wiley 事例で約 40% の業務効率改善が報告、FY25 時点）。 <a href="https://www.salesforce.com/news/stories/agentforce-customer-stories/" target="_blank">https://www.salesforce.com/news/stories/agentforce-customer-stories/</a></li>
       </ol>
     </div>
@@ -1936,7 +1936,7 @@
   <strong>AI投資の新しい設計図：社内生産性AIと顧客接点AI、役割分担で最大化する</strong><br>
   Enterprise AI Strategy eBook — 2026 Edition<br><br>
   本書中の数値はすべて<strong>カットオフ 2026-06-04 時点</strong>。<br>
-  出典 URL は脚注一覧に記載。Microsoft / Salesforce / Dynamics 365 / Microsoft 365 Copilot / Microsoft Graph / Microsoft Fabric / OneLake / Microsoft Purview / Microsoft Entra ID / Salesforce Customer 360 / Salesforce Data 360 / Agentforce / Einstein Trust Layer / MuleSoft / Tableau / Slack はそれぞれの提供元の商標です。
+  出典 URL は脚注一覧に記載。主要AIベンダー / Salesforce / 社内CRM基盤 / 社内生産性AI / 社内業務データ基盤 / 社内分析データ基盤 / 社内データレイク / データガバナンス基盤 / IDアクセス管理基盤 / Salesforce Customer 360 / Salesforce Data 360 / Agentforce / Einstein Trust Layer / MuleSoft / Tableau / Slack はそれぞれの提供元の商標です。
 </footer>
 
 <script>
